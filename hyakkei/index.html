@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>いきもの百景 | mitsulab</title>
+<style>
+  :root{--bg:#131110;--ink:#eae6dc;--dim:#8f8a82;--line:rgba(255,255,255,.13);
+    --panel:rgba(255,255,255,.045);--acc:#d0a468}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+  body{background:var(--bg);color:var(--ink);
+    font-family:"Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans JP",sans-serif;
+    line-height:1.85;font-feature-settings:"palt"}
+  .serif{font-family:"Hiragino Mincho ProN","Yu Mincho",serif}
+  /* ── 質感 ── 紙の粒子と翳り ─────────────── */
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:998;
+    background:radial-gradient(130% 95% at 50% 34%, transparent 58%, rgba(0,0,0,.34))}
+  body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.055;
+    mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)'/%3E%3C/svg%3E")}
+  main{max-width:820px;margin:0 auto;padding:64px 20px 48px}
+  h1{font-size:clamp(28px,5vw,44px);font-weight:600;letter-spacing:.22em}
+  .sub{color:var(--acc);font-size:12.5px;letter-spacing:.26em;margin-top:10px}
+  .intro{margin:24px 0 0;max-width:600px;font-size:14px}
+  .count{margin-top:20px;display:flex;align-items:baseline;gap:10px;
+    font-family:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+    font-variant-numeric:tabular-nums;letter-spacing:.06em}
+  .count .cnum{font-size:26px;color:var(--acc);font-weight:500}
+  .count .cnum .z{color:rgba(208,164,104,.32)}
+  .count .cunit{font-size:11px;color:var(--dim);letter-spacing:.2em}
+  .count .csep{color:var(--dim);font-size:14px;margin:0 4px}
+  /* 景の索引 */
+  .keis{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-top:40px}
+  .kei{position:relative;border:1px solid var(--line);border-radius:6px;overflow:hidden;cursor:pointer;
+    aspect-ratio:3/4;background:#000}
+  .kei img{width:100%;height:100%;object-fit:cover;opacity:.55;transition:opacity .25s}
+  .kei:hover img{opacity:.8}
+  .kei .k{position:absolute;left:0;right:0;bottom:0;padding:10px 12px;
+    background:linear-gradient(transparent,rgba(0,0,0,.72))}
+  .kei .no{font-size:9.5px;color:var(--acc);letter-spacing:.28em}
+  .kei .nm{font-size:26px;font-weight:600;letter-spacing:.2em;color:#fff}
+  /* 英語は長い説明を持つ景があるので、索引の札では見出しの語までにする。
+     2026-09-21：炭・版築・肥などで札が伸びて、上の「第N景」と名前がカードの外へ
+     押し出されていた（.kei は overflow:hidden なので黙って消える）。 */
+  .kei .yo{font-size:10px;color:rgba(255,255,255,.7);letter-spacing:.12em;
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+  /* 景のページ */
+  #view{display:none}
+  #view.on{display:block}
+  #idx.off{display:none}
+  .back{display:inline-block;margin:34px 0 0;font-size:12px;color:var(--acc);cursor:pointer;
+    letter-spacing:.18em;border:1px solid var(--line);border-radius:999px;padding:5px 16px}
+  .khead{margin-top:34px}
+  .khead .no{color:var(--acc);font-size:11px;letter-spacing:.34em}
+  .khead h2{font-size:clamp(32px,6vw,48px);font-weight:600;letter-spacing:.24em;margin-top:4px}
+  .khead .yo{color:var(--dim);font-size:12px;letter-spacing:.2em}
+  .khead .lead{margin-top:14px;font-size:14px;max-width:600px}
+  .tl{position:relative;margin-top:42px;padding-left:92px}
+  .tl::before{content:"";position:absolute;left:66px;top:0;bottom:0;width:1px;background:var(--line)}
+  .w{position:relative;margin-bottom:52px}
+  .w .yr{position:absolute;left:-92px;top:2px;width:56px;text-align:right;
+    font-size:10.5px;color:var(--acc);letter-spacing:.04em;line-height:1.55}
+  .w .dot{position:absolute;left:-29px;top:8px;width:7px;height:7px;border-radius:50%;background:var(--acc)}
+  .w img{max-width:100%;display:block;border:1px solid var(--line);background:#0a0908}
+  .w h3{font-size:15.5px;font-weight:600;margin-top:12px;letter-spacing:.04em}
+  .w .who{font-size:11.5px;color:var(--dim);margin-top:2px}
+  .w .note{font-size:13px;margin-top:8px;max-width:580px}
+  .w .src{font-size:10px;color:var(--dim);margin-top:7px;letter-spacing:.05em}
+  .w .src a{color:var(--acc);text-decoration:none;border-bottom:1px solid rgba(208,164,104,.35)}
+  .nat{margin-top:14px;border-top:1px solid var(--line);padding-top:26px}
+  .nat h4{font-size:12px;letter-spacing:.3em;color:var(--dim);margin-bottom:14px}
+  .fact{border:1px solid var(--line);background:var(--panel);border-radius:6px;
+    padding:14px 18px;margin-bottom:10px;font-size:13px}
+  .fact .h{font-size:10.5px;color:var(--acc);letter-spacing:.22em;margin-bottom:3px}
+  .invite{border-left:2px solid var(--acc);padding:4px 0 4px 14px;margin:22px 0 0;font-size:13px}
+  .invite .h{font-size:10.5px;color:var(--acc);letter-spacing:.22em}
+  footer{margin-top:64px;border-top:1px solid var(--line);padding-top:16px;
+    font-size:11px;color:var(--dim);line-height:1.9}
+  footer details{margin-top:6px} footer summary{cursor:pointer}
+  footer a{color:var(--acc);text-decoration:none;border-bottom:1px solid rgba(208,164,104,.35)}
+  @media (max-width:520px){
+    .tl{padding-left:0}.tl::before{display:none}
+    .w .yr{position:static;width:auto;text-align:left;margin-bottom:4px}
+    .w .dot{display:none}
+    .keis{grid-template-columns:repeat(2,1fr)}
+  }
+
+  /* ── mitsulab タブ ── 連作の窓 ─────────────── */
+  .mtab-btn{position:fixed;top:14px;right:14px;z-index:1400;font-size:10.5px;letter-spacing:.24em;
+    padding:7px 15px 7px 17px;cursor:pointer;color:#d0a468;background:rgba(19,17,16,.66);
+    border:1px solid rgba(255,255,255,.16);border-radius:999px;font-family:inherit;
+    backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);transition:border-color .25s}
+  .mtab-btn:hover{border-color:#d0a468}
+  .mtab-scrim{position:fixed;inset:0;z-index:1450;background:rgba(0,0,0,.55);display:none}
+  .mtab{position:fixed;top:0;right:0;bottom:0;z-index:1460;width:min(420px,100vw);display:none;
+    overflow-y:auto;background:#171412;border-left:1px solid rgba(255,255,255,.16);
+    padding:34px 26px 44px;font-size:13px;line-height:1.9}
+  .mtab.show,.mtab-scrim.show{display:block}
+  @media (prefers-reduced-motion: no-preference){
+    .mtab.show{animation:mtabIn .26s ease}
+  }
+  @keyframes mtabIn{from{transform:translateX(26px);opacity:0}to{transform:none;opacity:1}}
+  .mtab-x{position:absolute;top:10px;right:14px;font-size:20px;line-height:1;padding:6px 10px;
+    background:none;border:none;cursor:pointer;color:inherit;opacity:.6;font-family:inherit}
+  .mtab-x:hover{opacity:1}
+  .mtab .mh{font-size:10.5px;letter-spacing:.28em;color:#d0a468;margin:24px 0 6px}
+  .mtab .mh:first-of-type{margin-top:4px}
+  .mtab .mp{font-size:12.5px;margin:6px 0}
+  .mtab .mp a{color:#d0a468;text-decoration:none;border-bottom:1px solid #d0a46855}
+  .mtab .mlist{list-style:none;margin:4px 0;padding:0}
+  .mtab .mlist li{margin:8px 0;font-size:13px}
+  .mtab .mlist a{color:inherit;text-decoration:none;border-bottom:1px solid #d0a46855}
+  .mtab .mlist a:hover{color:#d0a468}
+  .mtab .mlist .d{color:inherit;opacity:.55;font-size:10.5px;letter-spacing:.05em;margin-left:8px}
+  .mtab .mnow{color:#d0a468}
+/* oto:css:begin */
+  /* ── 景の音 ── 押してから鳴る（制作方針 §5.8） ── */
+  .keioto{margin-top:16px;display:none}
+  .keioto.on{display:block}
+  .keioto button{font:inherit;font-size:11.5px;letter-spacing:.14em;padding:6px 16px;
+    border-radius:999px;cursor:pointer;color:var(--acc);background:transparent;
+    border:1px solid var(--acc)}
+  .keioto button.playing{background:var(--acc);color:#15130f}
+  .keioto .cred{font-size:10.5px;color:var(--dim);margin-top:7px;line-height:1.8;max-width:560px}
+  .keioto .cred a{color:var(--acc);text-decoration:none;border-bottom:1px solid rgba(169,182,196,.35)}
+  .keioto .stat{font-size:10.5px;color:var(--dim);margin-top:5px}
+/* oto:css:end */
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1 class="serif">いきもの百景</h1>
+    <p class="intro">いきものがいて、そのいきものを作品にした人がいる。作品を鑑賞するとき、私たちはいきものごと鑑賞している——描かれた時代の歴史や文化を作品越しに知ることは、そのいきものとの新たな出逢いの扉になる。</p>
+    <p class="intro">作品という窓を通すと、同じいきものにも百人百様の見え方がある。だから、いきもの百景。一つのいきものが一つの景、百の景がそろうまで集めつづける。</p>
+    <div class="count" id="counter" aria-label=""></div>
+  </header>
+
+  <div class="keis" id="idx"></div>
+
+  <section id="view">
+    <span class="back" id="back">← 景の一覧へ</span>
+    <div class="khead">
+      <div class="no" id="kNo"></div>
+      <h2 class="serif" id="kName"></h2>
+      <div class="yo" id="kYomi"></div>
+      <p class="lead" id="kLead"></p>
+    </div>
+    <div class="tl" id="tl"></div>
+    <div class="nat">
+      <h4>自然の層 ── ほんとうのすがた</h4>
+      <div id="facts"></div>
+      <div class="invite"><div class="h">きょうのさそい</div><span id="kInv"></span></div>
+    </div>
+  </section>
+
+  <footer>
+    <details><summary>作品と権利</summary>
+      <p style="margin-top:6px">美術作品は<a href="https://www.metmuseum.org/about-the-met/policies-and-documents/open-access" target="_blank" rel="noopener">メトロポリタン美術館</a>・<a href="https://www.artic.edu/open-access/open-access-images" target="_blank" rel="noopener">シカゴ美術館</a>・<a href="https://www.clevelandart.org/open-access" target="_blank" rel="noopener">クリーブランド美術館</a>の各オープンアクセス（CC0／パブリックドメイン）、いまの写真は <a href="https://commons.wikimedia.org/" target="_blank" rel="noopener">Wikimedia Commons</a>（CC0／パブリックドメイン／CC BY／CC BY-SA）。ライセンスは作品ごとに表示。各館のコレクション API（<a href="https://metmuseum.github.io/" target="_blank" rel="noopener">Met</a>／<a href="https://api.artic.edu/docs/" target="_blank" rel="noopener">AIC</a>／<a href="https://openaccess-api.clevelandart.org/" target="_blank" rel="noopener">CMA</a>）と Commons の <code>extmetadata</code> で実在とライセンスを確認のうえ取得。</p>
+    </details>
+  </footer>
+</main>
+<script src="kei.js"></script>
+<script>
+  /* 英語の見出し語だけを取る（「Sumi — charcoal: …」→「Sumi」）。索引の札が伸びないように。 */
+  function enHead(s){ return String(s||'').split(' \u2014 ')[0].split('\u2014')[0].trim(); }
+
+/* デジタルカウンタ ── 009/100 景 ・ 077 作品 */
+const NKEI=KEI.length, NW=KEI.reduce((a,k)=>a+k.works.length,0);
+const counter=document.getElementById('counter');
+counter.setAttribute('aria-label',`いま${NKEI}景、百まであと${100-NKEI}。作品${NW}点`);
+function pad3(n){const s=String(n).padStart(3,'0');
+  const z=s.match(/^0*/)[0];return `<span class="z">${z}</span>${s.slice(z.length)||''}`;}
+function drawCount(a,b){counter.innerHTML=
+  `<span class="cnum">${pad3(a)}</span><span class="cunit">/100 景</span>`+
+  `<span class="csep">·</span>`+
+  `<span class="cnum">${pad3(b)}</span><span class="cunit">作品</span>`;}
+if(matchMedia('(prefers-reduced-motion: reduce)').matches){ drawCount(NKEI,NW); }
+else{
+  const t0=performance.now(),DUR=900;
+  (function tick(t){const p=Math.min(1,(t-t0)/DUR),e=1-Math.pow(1-p,3);
+    drawCount(Math.round(NKEI*e),Math.round(NW*e));
+    if(p<1)requestAnimationFrame(tick);})(t0);
+  setTimeout(()=>drawCount(NKEI,NW),DUR+300);
+}
+const idx=document.getElementById('idx'), view=document.getElementById('view');
+KEI.forEach(k=>{
+  const d=document.createElement('div'); d.className='kei';
+  d.innerHTML=`<img src="assets/${k.rep}" alt="${k.name}" loading="lazy">
+    <div class="k"><div class="no">${k.no}</div><div class="nm serif">${k.name}</div><div class="yo">${k.yomi} ── ${enHead(k.en)}・作品${k.works.length}点</div></div>`;
+  d.addEventListener('click',()=>openKei(k.id)); idx.appendChild(d);
+});
+function openKei(id){
+  const k=KEI.find(x=>x.id===id); if(!k)return;
+  document.getElementById('kNo').textContent=k.no;
+  document.getElementById('kName').textContent=k.name;
+  document.getElementById('kYomi').textContent=`${k.yomi} ── ${k.en}`;
+  document.getElementById('kLead').textContent=k.lead;
+  const tl=document.getElementById('tl'); tl.innerHTML='';
+  k.works.forEach(w=>{
+    const d=document.createElement('div'); d.className='w';
+    d.innerHTML=`<div class="yr">${w.date}<br>${w.place}</div><div class="dot"></div>
+      <img src="assets/${w.f}" alt="${w.title}" loading="lazy">
+      <h3>${w.title}</h3><div class="who">${w.artist}</div>
+      <div class="note">${w.note}</div>
+      <div class="src">${w.museum} ── ${w.lic}　<a href="${w.url}" target="_blank" rel="noopener">作品ページ →</a></div>`;
+    tl.appendChild(d);
+  });
+  const fs=document.getElementById('facts'); fs.innerHTML='';
+  k.nature.forEach(([h,t])=>{const f=document.createElement('div');f.className='fact';
+    f.innerHTML=`<div class="h">${h}</div>${t}`;fs.appendChild(f);});
+  document.getElementById('kInv').textContent=k.invite;
+  if(window.__otoFor)window.__otoFor(id);
+  idx.classList.add('off'); view.classList.add('on');
+  history.replaceState(null,'','#kei='+id); scrollTo(0,0);
+}
+document.getElementById('back').addEventListener('click',()=>{
+  if(window.__otoStop)window.__otoStop();
+  view.classList.remove('on'); idx.classList.remove('off');
+  history.replaceState(null,'',location.pathname); scrollTo(0,0);
+});
+const m=location.hash.match(/kei=(\w+)/); if(m) openKei(m[1]);
+</script>
+<script>/* oto:js:begin */
+/* ── 景の音（台帳＝_dev/oto.py・生成器＝_dev/build_oto.py）── */
+const OTO={"karasu": {"f": "oto_karasu.m4a", "label": "ハシボソガラスの声", "who": "Marie-Lan Taÿ Pamart", "where": "フランス・パリ（植物園）", "date": "2019-12-08", "lic": "CC BY-SA 4.0", "page": "https://commons.wikimedia.org/wiki/File:Corvus_corone_-_Carrion_Crow_XC511133.mp3", "note": "Corvus corone（ハシボソガラス）の基亜種。録音地はパリで、日本のハシボソガラス（亜種 orientalis）ではない。録音者の記載では、標識 W070 と番いの W084 がねぐらの縄張りを争っている声。", "oneshot": true}, "tsubame": {"f": "oto_tsubame.m4a", "label": "ツバメのさえずり", "who": "Jonathon Jongsma", "where": "アメリカ合衆国ミネソタ州", "date": "2011-07-17", "lic": "CC BY-SA 3.0", "page": "https://commons.wikimedia.org/wiki/File:Hirundo_rustica_-_Barn_Swallow_XC83449.mp3", "note": "Hirundo rustica（ツバメ）は日本と同じ種だが、この個体は北米の亜種。録音者の記載では、湿地に張り出した歩道に降りた雄の «twitter-warble song»。", "oneshot": true}, "kaeru": {"f": "oto_kaeru.m4a", "label": "ヨーロッパアカガエルの合唱", "who": "Gilles San Martin", "where": "ベルギー・ジャンブの庭の池", "date": "2012-03-28", "lic": "CC BY-SA 3.0", "page": "https://commons.wikimedia.org/wiki/File:Rana_temporaria_120329-015849.ogg", "note": "Rana temporaria（ヨーロッパアカガエル）の雄が、三月下旬に庭の池で複数鳴いている声。人が作った池での録音で、野の池ではない。日本のアカガエルとは別の種。", "oneshot": false}, "tsuru": {"f": "oto_tsuru.m4a", "label": "クロヅルのつがいの声", "who": "Wikimalte", "where": "スウェーデン・フンネベリ", "date": "2016-03-22", "lic": "CC BY-SA 4.0", "page": "https://commons.wikimedia.org/wiki/File:Grus_grus_hunneberget.ogg", "note": "Grus grus（クロヅル）のつがい。日本で「鶴」と言えばタンチョウ（Grus japonensis）を指すことが多いが、これは別の種で、録音地もスウェーデンである。", "oneshot": true}, "suzume": {"f": "oto_suzume.m4a", "label": "スズメの声", "who": "Derek Paulo", "where": "フィリピン・ネグロス・オクシデンタル州", "date": "2016-12-22", "lic": "CC BY-SA 4.0", "page": "https://commons.wikimedia.org/wiki/File:Passer_montanus_-_Eurasian_Tree_Sparrow_XC347807.mp3", "note": "Passer montanus（スズメ）。日本の雀と同じ種だが、録音地はフィリピンである。", "oneshot": true}, "shika": {"f": "oto_shika.m4a", "label": "ニホンジカの雄の声", "who": "大英図書館（British Library）／録音＝Lawrence Shove", "where": "イングランド・ドーセット州ウェアハム", "date": "記載なし（1964 年の録音と本文にある）", "lic": "CC BY-SA 4.0", "page": "https://commons.wikimedia.org/wiki/File:Sika_Deer_(Cervus_nippon)_(W1CDR0001426_BD2).ogg", "note": "Cervus nippon（ニホンジカ）の雄の声。和歌の「鹿の音」の主と同じ種だが、録音地はイングランドで、そこへ移入された個体群のもの。extmetadata に Artist が無く、出所は館の Credit 欄と分類（Audio files by Lawrence Shove）に依る。", "oneshot": true}, "washi": {"f": "oto_washi.m4a", "label": "イヌワシの声", "who": "大英図書館（British Library）／録音＝Lawrence Shove", "where": "スコットランド・キンロッキューエ", "date": "記載なし（1969 年 7 月の録音と本文にある）", "lic": "CC BY-SA 4.0", "page": "https://commons.wikimedia.org/wiki/File:Golden_Eagle_(Aquila_chrysaetos)_(W1CDR0001387_BD6).ogg", "note": "Aquila chrysaetos（イヌワシ）。日本にも分布する種だが、録音地はスコットランド。extmetadata に Artist が無く、出所は館の Credit 欄と分類に依る。", "oneshot": true}, "kujaku": {"f": "oto_kujaku.m4a", "label": "インドクジャクの声", "who": "Ke4roh", "where": "アメリカ合衆国・デンバー動物園", "date": "2009-07-04", "lic": "パブリックドメイン", "page": "https://commons.wikimedia.org/wiki/File:Pavo_cristatus_(call).ogg", "note": "Pavo cristatus（インドクジャク）。分類に «captive, male» とあり、動物園の飼育個体である。野生の声としては出さない。", "oneshot": true}, "kujira": {"f": "oto_kujira.m4a", "label": "ザトウクジラの歌（水中聴音器）", "who": "Garland E, Gedamke J, Rekdahl M, Noad M, Garrigue C, Gales N", "where": "南極海 Area V", "date": "2013（歌は 2010 年）", "lic": "CC BY 2.5", "page": "https://commons.wikimedia.org/wiki/File:Humpback-Whale-Song-on-the-Southern-Ocean-Feeding-Grounds-Implications-for-Cultural-Transmission-pone.0079422.s001.oga", "note": "査読論文（PLOS ONE, doi:10.1371/journal.pone.0079422）の付録音声。**水中聴音器（ハイドロフォン）の録音**なので、海の上や浜で聞こえる音ではない。元の標本化周波数は 8kHz で、4kHz より上は入っていない（機材の分解能を偽らない）。", "oneshot": false}};
+(function(){
+  const box=document.getElementById('keiOto'), btn=document.getElementById('keiOtoBtn'),
+        st=document.getElementById('keiOtoStat'), cr=document.getElementById('keiOtoCred');
+  if(!box) return;
+  let au=null, cur=null;
+  function stop(){ if(au){au.pause();au.src='';au=null;} btn.classList.remove('playing');
+    btn.textContent='♪ 聴く'; st.textContent=''; }
+  window.__otoStop=stop;
+  window.__otoFor=function(id){
+    stop(); cur=OTO[id]||null;
+    if(!cur){ box.classList.remove('on'); return; }
+    box.classList.add('on');
+    btn.textContent='♪ '+cur.label;
+    cr.innerHTML='この音は mitsulab が録ったものではありません。'+
+      '録音 '+cur.who+'（'+cur.where+'／'+cur.date+'）／'+cur.lic+
+      '　<a href="'+cur.page+'" target="_blank" rel="noopener">出典 →</a><br>'+cur.note;
+  };
+  btn.addEventListener('click',function(){
+    if(!cur) return;
+    if(au){ stop(); return; }
+    st.textContent='読み込み中…';
+    au=new Audio(); au.preload='auto'; au.loop=!cur.oneshot; au.volume=.9;
+    au.addEventListener('canplay',function(){
+      st.textContent=''; btn.classList.add('playing'); btn.textContent='■ とめる';
+      au.play().catch(function(){ st.textContent='この端末では鳴らせませんでした。'; });
+    },{once:true});
+    au.addEventListener('error',function(){
+      st.textContent='音を読めませんでした（配布にファイルが入っていないかもしれません）。';
+      au=null; btn.classList.remove('playing'); btn.textContent='♪ '+cur.label;
+    },{once:true});
+    au.addEventListener('ended',function(){ if(cur.oneshot) stop(); });
+    au.src='assets/'+cur.f;
+  });
+  /* 直接 #kei=… で開かれたとき、この差し込みは openKei より後に走るので、ここでも当てる */
+  var m=location.hash.match(/kei=(\w+)/); if(m) window.__otoFor(m[1]);
+})();
+/* oto:js:end */</script>
+
+<button class="mtab-btn" id="mtabBtn" aria-haspopup="dialog" aria-expanded="false">mitsulab</button>
+<div class="mtab-scrim" id="mtabScrim"></div>
+<aside class="mtab" id="mtabPanel" role="dialog" aria-label="森羅百景と mitsulab について">
+  <button class="mtab-x" id="mtabX" aria-label="閉じる">×</button>
+  <div class="mh">森羅百景</div>
+  <p class="mp">古今東西の自然と人の関係を、作品・ことば・あそび・音を通して体感する連作です。
+  いま 164 景・作品 891 点・音 26 本。</p>
+  <p class="mp">どの作品も、保護期間の満了した美術作品と、CC で公開されている写真・録音・データだけで組み立てています。
+  誰が・いつ・どこで・どの権利で公開したものかを、作品の一部として画面に出します。出どころを名乗らないものは使いません。</p>
+  <p class="mp"><a href="../index.html">総目録をひらく →</a></p>
+  <div class="mh">連作</div>
+  <ul class="mlist">
+      <li><a href="../tsuchi/index.html" data-slug="tsuchi">つち百景</a><span class="d">土のいとなみ一つが、一つの景</span></li>
+      <li><a href="../ame/index.html" data-slug="ame">あめ百景</a><span class="d">世界の雨の名前、一つが一つの景</span></li>
+      <li><a href="../kaze/index.html" data-slug="kaze">かぜ百景</a><span class="d">世界の風の名前、一つが一つの景</span></li>
+      <li><a href="../yuki/index.html" data-slug="yuki">ゆき百景</a><span class="d">世界の雪の名前、一つが一つの景</span></li>
+      <li><span class="mnow">いきもの百景</span><span class="d">いきもの一つが、一つの景 ── いまここ</span></li>
+      <li><a href="../yasai/index.html" data-slug="yasai">やさい百景</a><span class="d">やさい一つが、一つの景</span></li>
+      <li><a href="../tsuki/index.html" data-slug="tsuki">つき百景</a><span class="d">月の見え方一つが、一つの景</span></li>
+      <li><a href="../taiyo/index.html" data-slug="taiyo">たいよう百景</a><span class="d">太陽の見え方一つが、一つの景</span></li>
+  </ul>
+  <div class="mh">つくっているところ</div>
+  <p class="mp"><a href="https://mitsulab.jp" target="_blank" rel="noopener">mitsulab</a> ──
+  「土と人をつなぐ」をテーマに、サイエンス・テクノロジー・アートの境界を横断しながら、
+  土と人、そこに関わる生き物と機械の関係を探る研究所。埼玉県さいたま市大宮区。</p>
+  <p class="mp">代表 ── 上原光瑛</p>
+</aside>
+<script>
+(function(){var b=document.getElementById('mtabBtn'),p=document.getElementById('mtabPanel'),
+ s=document.getElementById('mtabScrim'),x=document.getElementById('mtabX');
+ function set(v){p.classList.toggle('show',v);s.classList.toggle('show',v);b.setAttribute('aria-expanded',v);}
+ b.addEventListener('click',function(){set(true);});
+ s.addEventListener('click',function(){set(false);});
+ x.addEventListener('click',function(){set(false);});
+ addEventListener('keydown',function(e){if(e.key==='Escape')set(false);});})();
+</script>
+</body>
+</html>
