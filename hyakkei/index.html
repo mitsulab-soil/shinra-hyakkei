@@ -299,5 +299,73 @@ const OTO={"karasu": {"f": "oto_karasu.m4a", "label": "ハシボソガラスの�
  x.addEventListener('click',function(){set(false);});
  addEventListener('keydown',function(e){if(e.key==='Escape')set(false);});})();
 </script>
+<!-- aoi:begin -->
+<style>
+  /* ── 案内役・碧（AI）── _dev/aoi.py ── */
+  .aoi-card{display:flex;gap:16px;align-items:flex-start;margin:26px 0 0;max-width:760px;
+    border:1px solid rgba(143,208,194,.28);border-radius:10px;padding:14px 16px;background:rgba(143,208,194,.045)}
+  .aoi-card .aoi-pic{flex:0 0 112px;width:112px;height:137px;border-radius:8px;overflow:hidden;background:#1b2321}
+  .aoi-card .aoi-pic img{width:100%;height:100%;object-fit:cover;display:block}
+  .aoi-card .aoi-body{min-width:0;flex:1}
+  .aoi-name{font-size:10.5px;letter-spacing:.2em;color:#8fd0c2;display:flex;align-items:center;gap:6px}
+  .aoi-name b{font-weight:600;letter-spacing:.14em}
+  .aoi-say{margin-top:6px;font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;
+    font-size:14px;line-height:1.85;color:#e9e7e2}
+  .aoi-say p+p{margin-top:4px}
+  .aoi-acts{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+  .aoi-chip{font:inherit;font-size:11.5px;letter-spacing:.08em;padding:5px 12px;border-radius:999px;cursor:pointer;
+    border:1px solid rgba(143,208,194,.4);background:transparent;color:#cfe9e2;text-decoration:none;line-height:1.5}
+  .aoi-chip:hover{border-color:#8fd0c2;color:#fff}
+  .aoi-chip.main{background:#8fd0c2;color:#10201c;border-color:#8fd0c2}
+  .aoi-note{margin-top:8px;font-size:10px;color:#8b8e93;letter-spacing:.04em}
+  .aoi-hint{display:flex;gap:9px;align-items:flex-start;margin:14px 0 4px;padding:8px 12px;max-width:640px;
+    border-left:2px solid #8fd0c2;background:rgba(143,208,194,.06);border-radius:0 6px 6px 0;scroll-margin-top:70px}
+  .aoi-hint img{flex:0 0 28px;width:28px;height:28px;border-radius:50%;object-fit:cover}
+  .aoi-hint div{font-size:12px;line-height:1.75;color:#d9e9e5}
+  .aoi-hint b{display:block;font-size:10px;letter-spacing:.18em;color:#8fd0c2;font-weight:600}
+  .aoi-hint span{display:block}
+  .aoi-flash{animation:aoiFlash 1.6s ease}
+  @keyframes aoiFlash{0%,100%{box-shadow:0 0 0 0 rgba(143,208,194,0)}25%{box-shadow:0 0 0 3px rgba(143,208,194,.55)}}
+  /* 連作のページ：右下の札 */
+  .aoi-dock{position:fixed;right:14px;bottom:14px;z-index:1350;display:flex;align-items:flex-end;gap:8px;
+    max-width:calc(100vw - 28px);font-family:"Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans JP",sans-serif}
+  .aoi-face{position:relative;flex:0 0 56px;width:56px;height:56px;border-radius:50%;padding:0;cursor:pointer;
+    border:1px solid rgba(143,208,194,.6);background:#1b2321;overflow:visible;box-shadow:0 6px 20px rgba(0,0,0,.45)}
+  .aoi-face img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block}
+  .aoi-dot{position:absolute;top:1px;right:1px;width:11px;height:11px;border-radius:50%;background:#8fd0c2;
+    border:2px solid #10201c;display:none}
+  .aoi-dot.on{display:block}
+  .aoi-bub{width:min(330px,calc(100vw - 92px));max-height:min(62vh,440px);overflow-y:auto;
+    background:rgba(16,22,21,.96);border:1px solid rgba(143,208,194,.35);border-radius:12px 12px 4px 12px;
+    padding:11px 13px 10px;box-shadow:0 10px 30px rgba(0,0,0,.5);
+    backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+  .aoi-dock .aoi-say{font-size:13px;line-height:1.8}
+  .aoi-fold{margin-left:auto;font:inherit;font-size:10px;letter-spacing:.12em;padding:1px 9px;border-radius:999px;
+    border:1px solid rgba(255,255,255,.18);background:transparent;color:#8b8e93;cursor:pointer}
+  .aoi-dock.fold .aoi-bub{display:none}
+  body:has(#ov.show) .aoi-dock,html.aoi3d-open .aoi-dock{display:none}
+  /* 3D の碧（押したときだけ） */
+  .aoi3d{position:fixed;inset:0;z-index:1480;display:none;background:radial-gradient(120% 90% at 50% 40%,#1f2a27,#0b0e0d)}
+  .aoi3d.on{display:block}
+  .aoi3d-stage{position:absolute;inset:0}
+  .aoi3d-stage canvas{display:block;width:100%;height:100%;touch-action:none}
+  .aoi3d-x{position:absolute;top:12px;right:14px;font-size:22px;line-height:1;padding:6px 12px;border-radius:999px;
+    background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.2);color:#e9e7e2;cursor:pointer}
+  .aoi3d-st{position:absolute;left:0;right:0;top:45%;text-align:center;font-size:12.5px;color:#cfe9e2;letter-spacing:.1em;padding:0 20px}
+  .aoi3d-cap{position:absolute;left:16px;top:16px;right:70px;font-size:12px;color:#cfe9e2;letter-spacing:.06em}
+  .aoi3d-cap b{color:#8fd0c2;font-weight:600}
+  .aoi3d-lic{position:absolute;left:0;right:0;bottom:0;font-size:10px;color:#9a9ea3;line-height:1.7;
+    padding:22px 16px calc(12px + env(safe-area-inset-bottom));background:linear-gradient(transparent,rgba(8,11,10,.88) 40%)}
+  @media (max-width:520px){
+    .aoi-card{gap:12px;padding:12px}
+    .aoi-card .aoi-pic{flex-basis:78px;width:78px;height:95px}
+    .aoi-say{font-size:13px}
+  }
+  @media (prefers-reduced-motion: reduce){.aoi-flash{animation:none}}
+</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/","@pixiv/three-vrm":"https://cdn.jsdelivr.net/npm/@pixiv/three-vrm@3.5.5/lib/three-vrm.module.min.js"}}</script>
+<script>window.AOI_CONF={"top":false,"slug":"hyakkei","kind":"kei","base":"../assets/aoi/","lines":{"about":["わたしは碧（あおい）。mitsulab がつくった AI の案内役です。","話すのは、選び方の案内と、このページに書いてある文の抜き出しだけです。新しい事実は足しません。生きものの気持ちを、代わりに言うこともしません。","確かなところは、作品ごとの注と出典で確かめてください。"],"note":"碧（AI）は、このページの文から案内しています。","kei_tail":"根拠は、作品ごとの注と出典にあります。いちばん下の「きょうのさそい」には、自分でためせることが一つ書いてあります。","omakase_note":"選んだのは、ただの偶然です。","none":"いま選べる景が見つかりませんでした。絞りこみを外してみてください。","no3dfile":["3D の碧は、公開版などウェブのページとしてひらいたときだけ呼べます。","ファイルを直接ひらいているときは、姿は出せません。"],"vrmlic":"姿：© mitsulab（VRoid Studio で作成した VRM）。この作品の中で碧を表示するためだけに置いています。利用条件は「アバターとして使えるのは作者のみ・再配布不可・改変不可」です。ファイルを取り出して、ほかで使ったり配ったりしないでください。表示：@pixiv/three-vrm・three.js（どちらも MIT）。","hello":["いきもの百景。いきもの一つが、一つの景です。","札を一枚えらぶと、その景を見た絵と、書かれた文学と、いまの写真が並びます。","迷ったら「おまかせで一つ」。"],"keisec":["ことばが呼んできた絵と、文学と、いまの写真。札を押すと、その景がひらきます。"]}};</script>
+<script>addEventListener("load",function(){var s=document.createElement("script");s.src="../assets/aoi/aoi.js";document.body.appendChild(s);});</script>
+<!-- aoi:end -->
 </body>
 </html>

@@ -24,7 +24,7 @@
 
 - 総目録（TOP）から、八つの連作と、すべての景へ行けます。時代の帯・地域の帯・地域×時代の表を押すと、景が絞りこまれます。
 - **音はひとりでには鳴りません。**「♪」を押したときだけ鳴り、もう一度押すか「とめる」で止まります。
-- サーバ・ログイン・計測タグ・cookie はありません。ブラウザだけで動きます（図版と音はこのリポジトリの中にあります）。
+- サーバ・ログイン・計測タグ・cookie はありません。ブラウザだけで動きます（図版と音はこのリポジトリの中にあります）。外へ取りに行くのは、「3D の碧を呼ぶ」を押したときの three.js・three-vrm（jsDelivr）だけです。
 - 診断・判定・効能は言いません。結びついている根拠がないものを、結びついているとは書きません。
 
 ## 出典とライセンス
@@ -142,6 +142,12 @@
 | やさい百景の地 | [『新美術海』巻二・第0035図](https://commons.wikimedia.org/wiki/File:Shin-bijutsukai_vol2_0035.jpg) | 作者不詳（Shin-Bijutsukai 1901-1902 所収） | 1902年 | Wikimedia Commons（出典＝スミソニアン図書館デジタルライブラリ） | パブリックドメイン |
 | つき百景の地 | [月の地球周回と満ち欠けの天図（Typus selenographicus lunae phases et aspectus varios adumbrans）](https://commons.wikimedia.org/wiki/File:Hemelkaart_van_de_baan_van_de_maan_rond_de_aarde_en_de_schijngestalten_van_de_maan_Typus_selenographicus_lunae_phases_et_aspectus_varios_ad_umbrans_(titel_op_object),_RP-P-AO-29-1-21.jpg) | Rijksmuseum（Artist フィールドは所蔵機関。図中の刻名は J. van Loon fecit と読める） | 1660年 | Wikimedia Commons（出典＝アムステルダム国立美術館 RP-P-AO-29-1-21） | CC0 |
 | たいよう百景の地 | [日輪文の金襴ビロード掛け（Brocaded velvet cover with sunbursts）](https://clevelandart.org/art/2008.146) | 作者不詳 | 1600年代前半（オスマン朝） | クリーブランド美術館 | CC0 |
+
+### 案内役・碧（AI）
+
+- 総目録と各連作のページに出てくる**碧（あおい）は、mitsulab がつくった AI の案内役**です。話すのは、選び方の案内と、そのページに書いてある文の抜き出しだけで、新しい事実は足しません。何も保存しません（右下の札をたたんだかどうかだけを、その端末に覚えます）。
+- 碧の絵（`assets/aoi/face.webp`・`bust.webp`）と 3D の姿（`assets/aoi/aoi.vrm`）：© mitsulab（VRoid Studio で作成）。**3D の姿は「3D の碧を呼ぶ」を押したときだけ読み込みます。**VRM の利用条件は「アバターとして使えるのは作者のみ・再配布不可・改変不可」です。この作品の中で碧を表示するためだけに置いています。ファイルを取り出して、ほかで使ったり配ったりしないでください（このリポジトリのほかの素材の条件は、碧には当てはまりません）。
+- 3D の表示：[three.js](https://threejs.org/)（MIT）・[@pixiv/three-vrm](https://github.com/pixiv/three-vrm)（MIT）。どちらも jsDelivr から版を固定して、押したときだけ読みます。
 
 ## 権利
 
