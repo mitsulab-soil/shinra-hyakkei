@@ -1,7 +1,7 @@
 /* 森羅百景の碧（AI）の 3D の姿 ── 2026-10-03。元＝_dev/aoi_src/aoi3d.js（_dev/aoi.py が assets/aoi/ へ写す）。
    「3D の碧を呼ぶ」を押したときだけ、aoi.js が import() で読む（はじめの表示では何も取りに行かない）。
    three@0.170.0 と @pixiv/three-vrm@3.5.5 は jsDelivr の版固定（ページの importmap）。《Feel Hikawa》と同じ組み合わせ。
-   姿＝assets/aoi/aoi.vrm（白磁 案A の Web 配信用の派生・約 2 MB。形は EXT_meshopt_compression、絵は WebP）。
+   姿＝assets/aoi/aoi.vrm（碧の現行デザインの Web 配信用の派生・約 2 MB。形は EXT_meshopt_compression、絵は WebP）。
    動き＝腕を脇へ下ろす・呼吸・まばたき・視線は見る人へ（《Feel Hikawa》の aoiPose と同じ値）。動きを減らす設定なら止める。 */
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
