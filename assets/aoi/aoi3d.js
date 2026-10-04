@@ -42,8 +42,9 @@ export async function show(stage, url, onProgress) {
   let blink = 2, bt = -1, raf = 0, last = performance.now();
   function pose(dt) {
     const t = performance.now() / 1000, br = RM ? 0 : Math.sin(t * 2 * Math.PI / 4.6);
-    set("leftUpperArm", 0, 0, -1.22); set("rightUpperArm", 0, 0, 1.22);
-    set("leftLowerArm", 0, 0.18, 0); set("rightLowerArm", 0, -0.18, 0);
+    // （腕の休め＝01_いま動いているもの/05_碧/02_碧の身体/aoi_pose.js の写し。前腕 Y は左が負・右が正＝肘が前へ曲がる）
+    set("leftUpperArm", -0.12, 0, -1.28); set("rightUpperArm", -0.12, 0, 1.28);
+    set("leftLowerArm", 0, -0.28, 0); set("rightLowerArm", 0, 0.28, 0);
     set("spine", -0.006 * br, 0, 0); set("chest", -0.012 * br, 0, 0); set("upperChest", -0.01 * br, 0, 0);
     set("leftShoulder", 0, 0, 0.006 * br); set("rightShoulder", 0, 0, -0.006 * br);
     let bv = 0;
