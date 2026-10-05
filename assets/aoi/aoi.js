@@ -14,9 +14,11 @@
 
   /* ── 吹き出し ── */
   var box, sayEl, actEl, dock, dot;
-  function say(lines, acts) {
+  function say(lines, acts, pic) {
     if (!sayEl) return;
     sayEl.innerHTML = "";
+    /* おまかせで選んだ景は、その景の絵を一枚添える（2026-10-05 検証 r1。ページにある絵をそのまま出すだけ） */
+    if (pic) { var pi = el("img", "aoi-pick"); pi.src = pic; pi.alt = ""; pi.decoding = "async"; sayEl.appendChild(pi); }
     lines.forEach(function (t) { if (t) sayEl.appendChild(el("p", null, t)); });
     actEl.innerHTML = "";
     (acts || []).forEach(function (a) {
@@ -99,9 +101,10 @@
   }
   function omakaseTop() {
     var a = pick("a.it:not(.hide)"); if (!a) { say(L.none, topActs()); return; }
-    var nm = txt(".nm", a), ap = a.dataset.app || "";
+    var nm = txt(".nm", a), ap = a.dataset.app || "", im = a.querySelector(".th img");
     say(["「" + nm + "」はどうでしょう。" + ap + "の景です。", L.omakase_note],
-        [{ label: "ひらく →", href: a.getAttribute("href"), main: true }, { label: "べつのを", fn: omakaseTop }].concat(topActs().slice(4)));
+        [{ label: "ひらく →", href: a.getAttribute("href"), main: true }, { label: "べつのを", fn: omakaseTop }].concat(topActs().slice(4)),
+        im ? im.getAttribute("src") : null);
   }
 
   /* ── 連作のページ ── */
@@ -114,8 +117,9 @@
   function omakaseSeries() {
     var c = pick(C.kind === "kotoba" ? "#kvs .kv" : "#idx .kei");
     if (!c) { say(L.none, seriesActs()); return; }
-    var nm = txt(".nm", c);
-    say(["「" + nm + "」はどうでしょう。"], [{ label: "ひらく →", main: true, fn: function () { c.click(); } }, { label: "べつのを", fn: omakaseSeries }]);
+    var nm = txt(".nm", c), im = c.querySelector("img");
+    say(["「" + nm + "」はどうでしょう。"], [{ label: "ひらく →", main: true, fn: function () { c.click(); } }, { label: "べつのを", fn: omakaseSeries }],
+        im ? im.getAttribute("src") : null);
   }
   /* いまひらいている景を、ページの文から抜き出して言う（新しいことは足さない） */
   function first(s) {
@@ -173,7 +177,7 @@
     function setFold(v) { dock.classList.toggle("fold", v); store.set("aoi.fold", v ? "1" : "0"); if (!v) dot.classList.remove("on"); }
     face.addEventListener("click", function () { setFold(!dock.classList.contains("fold")); });
     fold.addEventListener("click", function () { setFold(true); });
-    if (store.get("aoi.fold") === "1" || innerWidth < 560 && store.get("aoi.fold") !== "0") dock.classList.add("fold");
+    if (store.get("aoi.fold") === "1" || innerWidth < 1680 && store.get("aoi.fold") !== "0") dock.classList.add("fold");
     say(L.hello, seriesActs());
     dot.classList.remove("on");
     watch();

@@ -131,6 +131,14 @@
   .keioto .stat{font-size:10.5px;color:var(--dim);margin-top:5px}
 /* oto:css:end */
 </style>
+<!-- ux:head:begin -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="つき百景 ── 森羅百景 | mitsulab">
+<meta property="og:description" content="つき百景 ── 《森羅百景》の連作の一つ。月の見え方一つが、一つの景。">
+<meta property="og:url" content="https://mitsulab-soil.github.io/shinra-hyakkei/tsuki/">
+<meta property="og:image" content="https://mitsulab-soil.github.io/shinra-hyakkei/tsuki/assets/mochizuki_a4.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<!-- ux:head:end -->
 </head>
 <body>
 <main>
@@ -138,7 +146,8 @@
     <h1 class="serif">つき百景</h1>
     <p class="intro">同じ月を、人は望月・三日月・十六夜・有明と、見え方ごとに呼び分けてきた。月は一つしかないのに、名前は幾つもある——名前の数だけ、人が月を見上げた時刻と気分がある。</p>
     <p class="intro">作品という窓を通すと、同じ月にも百人百様の見え方がある。だから、つき百景。月の見え方一つが一つの景、百の景まで集めつづける。</p>
-    <div class="count" id="counter" aria-label=""></div>
+    <!-- ux:en:begin --><p class="intro en" lang="en">Tsuki Hyakkei — views of the Moon. Each view is one way the Moon appears (crescent, full, eclipse, its markings…), seen through paintings and writings, with a note on the astronomy. The pages are in Japanese; your browser's translation works on them. Aoi, the guide, is an AI that only points the way and quotes this page.</p><!-- ux:en:end -->
+<div class="count" id="counter" aria-label=""></div>
   </header>
 
   <div class="keis" id="idx"></div>
@@ -201,7 +210,7 @@ KEI.forEach(k=>{
   const d=document.createElement('div'); d.className='kei';
   d.style.setProperty('--acc',ACC[k.kind]||'#a9b6c4');
   d.innerHTML=`<img src="assets/${k.rep}" alt="${k.name}" loading="lazy">
-    <div class="k"><div class="no">${k.no}</div><div class="nm serif">${k.name}</div><div class="yo">${k.yomi} ── ${enHead(k.en)}・作品${k.works.length}点</div></div>`;
+    <div class="k"><div class="no">${k.no}</div><div class="nm serif">${k.name}</div><div class="yo">${k.yomi} ── ${k.ens||enHead(k.en)}・作品${k.works.length}点</div></div>`;
   d.addEventListener('click',()=>openKei(k.id)); idx.appendChild(d);
 });
 function openKei(id){
@@ -348,6 +357,9 @@ const OTO={};
   .aoi-chip{font:inherit;font-size:11.5px;letter-spacing:.08em;padding:5px 12px;border-radius:999px;cursor:pointer;
     border:1px solid rgba(143,208,194,.4);background:transparent;color:#cfe9e2;text-decoration:none;line-height:1.5}
   .aoi-chip:hover{border-color:#8fd0c2;color:#fff}
+  .aoi-chip{min-height:36px;display:inline-flex;align-items:center;font-size:12.5px}
+  .aoi-pick{display:block;width:100%;max-width:220px;height:120px;object-fit:cover;border-radius:6px;
+    border:1px solid rgba(255,255,255,.12);margin:2px 0 8px;background:#0a0908}
   .aoi-chip.main{background:#8fd0c2;color:#10201c;border-color:#8fd0c2}
   .aoi-note{margin-top:8px;font-size:10px;color:#8b8e93;letter-spacing:.04em}
   .aoi-hint{display:flex;gap:9px;align-items:flex-start;margin:14px 0 4px;padding:8px 12px;max-width:640px;
@@ -399,5 +411,136 @@ const OTO={};
 <script>window.AOI_CONF={"top":false,"slug":"tsuki","kind":"kei","base":"../assets/aoi/","lines":{"about":["わたしは碧（あおい）。mitsulab がつくった AI の案内役です。","話すのは、選び方の案内と、このページに書いてある文の抜き出しだけです。新しい事実は足しません。生きものの気持ちを、代わりに言うこともしません。","確かなところは、作品ごとの注と出典で確かめてください。"],"note":"碧（AI）は、このページの文から案内しています。","kei_tail":"根拠は、作品ごとの注と出典にあります。いちばん下の「きょうのさそい」には、自分でためせることが一つ書いてあります。","omakase_note":"選んだのは、ただの偶然です。","none":"いま選べる景が見つかりませんでした。絞りこみを外してみてください。","no3dfile":["3D の碧は、公開版などウェブのページとしてひらいたときだけ呼べます。","ファイルを直接ひらいているときは、姿は出せません。"],"vrmlic":"姿：© mitsulab（VRoid Studio で作成した VRM）。この作品の中で碧を表示するためだけに置いています。利用条件は「アバターとして使えるのは作者のみ・再配布不可・改変不可」です。ファイルを取り出して、ほかで使ったり配ったりしないでください。表示：@pixiv/three-vrm・three.js（どちらも MIT）。","hello":["つき百景。月の見え方一つが、一つの景です。","札を一枚えらぶと、その景を見た絵と、書かれた文学と、いまの写真が並びます。","迷ったら「おまかせで一つ」。"],"keisec":["ことばが呼んできた絵と、文学と、いまの写真。札を押すと、その景がひらきます。"]}};</script>
 <script>addEventListener("load",function(){var s=document.createElement("script");s.src="../assets/aoi/aoi.js";document.body.appendChild(s);});</script>
 <!-- aoi:end -->
+<!-- ux:begin -->
+<style>
+  /* ── 見やすさ・使いやすさ ── _dev/ux.py（2026-10-05 検証 r1） ── */
+  .count .cnum .z{display:none}
+  .kei:focus-visible,.kv:focus-visible,.card:focus-visible,.back:focus-visible,.kbtn:focus-visible,.w img:focus-visible{
+    outline:2px solid var(--acc,#c9b48b);outline-offset:3px}
+  .kei .yo{font-size:11px}
+  .w .src,.kov .w .srcl{font-size:11px}
+  .back,.kov .back{padding:8px 18px}
+  .keioto button{min-height:40px;font-size:12.5px}
+  .w img{cursor:zoom-in}
+  .w .care{display:inline-block;margin-top:10px;font-size:11px;letter-spacing:.06em;color:#e9d9b8;
+    border:1px solid rgba(233,217,184,.4);border-radius:4px;padding:1px 8px;background:rgba(233,217,184,.06)}
+  .w .care+h3{margin-top:6px}
+  .ux-koyomi{display:inline-block;margin-top:6px;font-size:11.5px;color:var(--acc,#c9b48b);text-decoration:none;
+    border-bottom:1px solid rgba(201,180,139,.4)}
+  /* 景をひらいたら、連作の導入は畳んで、景を主役にする（英語話者の指摘：景の見出しが画面の下に沈んでいた） */
+  body:has(#view.on) header .intro,body:has(#view.on) header .count{display:none}
+  .intro.en{font-size:12.5px;color:var(--dim);font-style:italic;margin-top:12px}
+  footer{padding-bottom:84px}
+  /* 絵を大きく */
+  .ux-lb{position:fixed;inset:0;z-index:1700;background:rgba(5,6,7,.94);display:none;cursor:zoom-out;
+    align-items:center;justify-content:center;flex-direction:column;padding:16px}
+  .ux-lb.on{display:flex}
+  .ux-lb img{max-width:100%;max-height:calc(100vh - 80px);object-fit:contain;border:0;background:transparent}
+  .ux-lb .cap{margin-top:10px;font-size:12px;color:#cfcac0;max-width:820px;text-align:center;line-height:1.7}
+  .ux-lb .x{position:absolute;top:10px;right:12px;font:inherit;font-size:22px;line-height:1;padding:6px 12px;
+    border-radius:999px;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.22);color:#eee;cursor:pointer}
+  /* スマホで下へ読み進めているあいだは、固定の札を引っこめる */
+  .mtab-btn,.aoi-dock{transition:opacity .25s,transform .25s}
+  @media (max-width:820px){
+    html.ux-down .mtab-btn,html.ux-down .aoi-dock.fold{opacity:0;pointer-events:none;transform:translateY(10px)}
+    .aoi-face{flex-basis:48px;width:48px;height:48px}
+    .kov-in{padding-top:64px}
+  }
+  @media print{
+    body{background:#fff!important;color:#000!important}
+    body::before,body::after,.mtab-btn,.mtab,.mtab-scrim,.aoi-dock,.aoi3d,#otobar,.keioto,.back,.kbtn,.ux-lb{display:none!important}
+    .w img{max-height:60vh;border:0}
+    .w .src a,.kov .w .srcl a{color:#000}
+    .kov{position:static!important;overflow:visible!important;background:#fff!important}
+    .fact{border-color:#999!important;background:#fff!important}
+    *{color:#000!important}
+  }
+</style>
+<script>
+(function(){
+  var D=document, H=D.documentElement;
+  var SLUG="tsuki", KOYOMI=true;
+  /* 1. 景の札をキーボードで開ける */
+  var SEL='.kei,.kv,.card,.back,.kbtn';
+  function deco(root){
+    [].forEach.call((root||D).querySelectorAll(SEL),function(e){
+      if(e.hasAttribute('tabindex'))return;
+      e.setAttribute('tabindex','0'); e.setAttribute('role','button');
+      var nm=e.querySelector('.nm,.word');
+      if(nm&&!e.hasAttribute('aria-label'))e.setAttribute('aria-label',nm.textContent.trim());
+    });
+    [].forEach.call((root||D).querySelectorAll('.w img'),function(im){
+      if(im.hasAttribute('tabindex'))return;
+      im.setAttribute('tabindex','0'); im.setAttribute('role','button');
+      im.setAttribute('aria-label',(im.alt||'絵')+' ── 大きく見る');
+    });
+  }
+  D.addEventListener('keydown',function(e){
+    if((e.key==='Enter'||e.key===' ')&&e.target&&e.target.matches&&e.target.matches(SEL+',.w img')){
+      e.preventDefault(); e.target.click();
+    }
+  });
+  /* 2. 絵を大きく */
+  var lb=D.createElement('div'); lb.className='ux-lb'; lb.setAttribute('role','dialog'); lb.setAttribute('aria-label','絵を大きく見る');
+  lb.innerHTML='<button class="x" type="button" aria-label="閉じる">×</button><img alt=""><div class="cap"></div>';
+  D.body.appendChild(lb);
+  var lbImg=lb.querySelector('img'), lbCap=lb.querySelector('.cap'), lbFrom=null;
+  function lbOpen(im){
+    lbImg.src=im.currentSrc||im.src; lbImg.alt=im.alt||'';
+    var w=im.closest('.w'), h=w&&w.querySelector('h3'), who=w&&w.querySelector('.who');
+    lbCap.textContent=(h?h.textContent:'')+(who?' ── '+who.textContent:'');
+    lbFrom=im; lb.classList.add('on'); lb.querySelector('.x').focus();
+  }
+  function lbClose(){ lb.classList.remove('on'); lbImg.removeAttribute('src'); if(lbFrom){lbFrom.focus();lbFrom=null;} }
+  D.addEventListener('click',function(e){
+    var im=e.target.closest&&e.target.closest('.w img');
+    if(im&&!lb.contains(im)){ e.preventDefault(); lbOpen(im); return; }
+    if(lb.classList.contains('on')&&lb.contains(e.target)) lbClose();
+  });
+  addEventListener('keydown',function(e){
+    if(e.key==='Escape'&&lb.classList.contains('on')){ e.stopImmediatePropagation(); e.preventDefault(); lbClose(); }
+  },true);
+  /* 3. 先生への札（作品の care 欄）と、暦計算室への道 */
+  function cur(){
+    if(typeof KEI==='undefined')return null;
+    var m=location.hash.match(/kei=(\w+)/); if(!m)return null;
+    for(var i=0;i<KEI.length;i++)if(KEI[i].id===m[1])return KEI[i];
+    return null;
+  }
+  function marks(){
+    var k=cur(), tl=D.getElementById('tl');
+    if(k&&tl){
+      var ws=tl.querySelectorAll(':scope > .w');
+      k.works.forEach(function(w,i){
+        var el=ws[i]; if(!el||!w.care||el.querySelector('.care'))return;
+        var c=D.createElement('div'); c.className='care'; c.textContent='先生へ：'+w.care;
+        var h3=el.querySelector('h3'); if(h3)el.insertBefore(c,h3); else el.appendChild(c);
+      });
+    }
+    var inv=D.getElementById('kInv');
+    if(KOYOMI&&inv&&!D.querySelector('.ux-koyomi')){
+      var a=D.createElement('a'); a.className='ux-koyomi'; a.href='https://eco.mtk.nao.ac.jp/koyomi/';
+      a.target='_blank'; a.rel='noopener'; a.textContent='月の出・日の入りの時刻を調べる → 国立天文台 暦計算室';
+      inv.parentNode.appendChild(D.createElement('br')); inv.parentNode.appendChild(a);
+    }
+    deco();
+  }
+  ['tl','kovIn','idx','kvs','grid'].forEach(function(id){
+    var e=D.getElementById(id); if(e)new MutationObserver(function(){setTimeout(marks,0);}).observe(e,{childList:true});
+  });
+  marks();
+  /* 4. スマホで下へ読み進めるあいだ、固定の札を引っこめる */
+  function watchScroll(target,get){
+    var last=get();
+    target.addEventListener('scroll',function(){
+      var y=get(), d=y-last; if(Math.abs(d)<6)return;
+      H.classList.toggle('ux-down',d>0&&y>160); last=y;
+    },{passive:true});
+  }
+  watchScroll(window,function(){return scrollY;});
+  var kov=D.getElementById('kov'); if(kov)watchScroll(kov,function(){return kov.scrollTop;});
+})();
+</script>
+<!-- ux:end -->
 </body>
 </html>
