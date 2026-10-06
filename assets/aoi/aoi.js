@@ -1,4 +1,4 @@
-/* 森羅百景の案内役・碧（AI）── 2026-10-03。元＝_dev/aoi_src/aoi.js（_dev/aoi.py が assets/aoi/ へ写す。写した先は直さない）。
+/* 森羅百景の案内役・碧（依代）── 2026-10-03。元＝_dev/aoi_src/aoi.js（_dev/aoi.py が assets/aoi/ へ写す。写した先は直さない）。
    碧が話すのは、①選び方の案内（帯・表・カードのどこを押すか）と、②いまひらいている景の、ページに書いてある文の抜き出しだけ。
    新しい事実は足さない。断定しない。生きものの気持ちを代わりに言わない。AI であることを、いつも名札に出す。
    3D の姿は「3D の碧を呼ぶ」を押したときだけ取りに行く（はじめの表示を遅くしない）。 */
@@ -36,7 +36,7 @@
     if (lines) {
       var h = el("div", "aoi-hint"), im = el("img");
       im.src = C.base + "face.webp"; im.alt = ""; im.width = 28; im.height = 28;
-      var t = el("div"); t.appendChild(el("b", null, "碧（AI）"));
+      var t = el("div"); t.appendChild(el("b", null, "碧"));
       lines.forEach(function (x) { t.appendChild(el("span", null, x)); });
       h.appendChild(im); h.appendChild(t); e.parentNode.insertBefore(h, e); tgt = h;
     }
@@ -60,7 +60,7 @@
       var x = el("button", "aoi3d-x", "×"); x.type = "button"; x.setAttribute("aria-label", "閉じる");
       var st = el("div", "aoi3d-st", "読み込んでいます（約 2 MB）");
       var cap = el("div", "aoi3d-cap");
-      cap.appendChild(el("b", null, "碧（AI）"));
+      cap.appendChild(el("b", null, "碧"));
       cap.appendChild(D.createTextNode(" ── 3D の姿。ドラッグでまわせます。"));
       var lic = el("div", "aoi3d-lic", L.vrmlic);
       var stage = el("div", "aoi3d-stage");
@@ -162,12 +162,12 @@
       say(L.hello, topActs());
       return;
     }
-    dock = el("aside", "aoi-dock"); dock.id = "aoiDock"; dock.setAttribute("aria-label", "案内役の碧（AI）");
-    var face = el("button", "aoi-face"); face.type = "button"; face.setAttribute("aria-label", "碧（AI）の吹き出しをひらく・たたむ");
+    dock = el("aside", "aoi-dock"); dock.id = "aoiDock"; dock.setAttribute("aria-label", "案内役の碧");
+    var face = el("button", "aoi-face"); face.type = "button"; face.setAttribute("aria-label", "碧の吹き出しをひらく・たたむ");
     var img = el("img"); img.src = C.base + "face.webp"; img.alt = ""; img.width = 56; img.height = 56; img.decoding = "async";
     dot = el("i", "aoi-dot"); face.appendChild(img); face.appendChild(dot);
     var bub = el("div", "aoi-bub");
-    var head = el("div", "aoi-name"); head.appendChild(el("b", null, "碧（AI）")); head.appendChild(D.createTextNode(" 案内役"));
+    var head = el("div", "aoi-name"); head.appendChild(el("b", null, "碧")); head.appendChild(D.createTextNode("（あおい）｜依代"));
     var fold = el("button", "aoi-fold", "たたむ"); fold.type = "button"; head.appendChild(fold);
     sayEl = el("div", "aoi-say"); actEl = el("div", "aoi-acts");
     var note = el("div", "aoi-note", L.note);

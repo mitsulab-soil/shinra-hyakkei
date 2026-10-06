@@ -131,6 +131,31 @@
   .fchip.on{border-color:var(--ac,var(--acc));background:rgba(255,255,255,.06)}
   .hit{font-size:11.5px;color:var(--dim);margin-top:8px;
     font-family:"JetBrains Mono",ui-monospace,monospace}
+  /* ── きょうの一景（2026-10-07 パネル11人 P2：入口を一景から） ── */
+  .today{margin-top:22px;max-width:640px}
+  .tlab{font-size:11px;letter-spacing:.24em;color:var(--acc)}
+  .tlab span{letter-spacing:.06em;color:var(--dim);font-style:italic}
+  .tcard{display:flex;gap:14px;align-items:stretch;margin-top:8px;border:1px solid var(--line);border-radius:8px;
+    overflow:hidden;text-decoration:none;color:inherit;background:rgba(255,255,255,.04);transition:border-color .2s}
+  .tcard:hover,.tcard:focus-visible{border-color:var(--acc)}
+  .tth{flex:0 0 132px;height:150px;background:#0a0908;overflow:hidden;display:flex}
+  .tth img{width:100%;height:100%;object-fit:cover}
+  .tth .nothumb{font-size:48px}
+  .ttx{display:flex;flex-direction:column;justify-content:center;gap:3px;padding:12px 14px 12px 0;min-width:0}
+  .tap{font-size:11px;color:var(--acc);letter-spacing:.12em}
+  .tnm{font-size:30px;font-weight:600;letter-spacing:.1em;line-height:1.3}
+  .tyo{font-size:12.5px;color:var(--dim)}
+  .tgo{margin-top:6px;font-size:13px;color:var(--acc)}
+  .tnext{margin-top:8px;font:inherit;font-size:12.5px;letter-spacing:.08em;min-height:44px;padding:0 16px;
+    border:1px solid var(--line);border-radius:999px;background:transparent;color:inherit;cursor:pointer}
+  .tnext:hover{border-color:var(--acc)}
+  /* 押せる範囲を 44px に（2026-10-07 パネル11人 P2・指で押す画面） */
+  @media (pointer:coarse),(max-width:700px){
+    .gsnd,.fchip{min-height:44px;display:inline-flex;align-items:center}
+    .xc{min-height:44px}
+    summary{padding:12px 0}
+  }
+  @media (max-width:520px){.tth{flex-basis:108px;height:128px}.tnm{font-size:26px}}
   /* ── 景の索引 ── */
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin-top:16px}
   a.it{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:6px;
@@ -187,20 +212,27 @@
     <p class="intro">古今東西の自然と人の関係を、作品・ことば・あそび・音を通して体感する連作です。
     いきものも、ことばも、やさいも、土のいとなみも、一つが一つの景。
     景をひらくと、その景を見た古今東西の絵と、書かれた文学と、いまの写真に着きます。</p>
+    <section class="today" id="today" aria-label="きょうの一景" hidden>
+      <div class="tlab">きょうの一景 <span lang="en">— one view for today</span></div>
+      <a class="tcard" id="todayA" href="#"><span class="tth" id="todayTh"></span>
+        <span class="ttx"><span class="tap" id="todayAp"></span><span class="tnm serif" id="todayNm"></span>
+        <span class="tyo" id="todayYo"></span><span class="tgo">この景をひらく →</span></span></a>
+      <button class="tnext" type="button" id="todayNext">べつの一景</button>
+    </section>
     <p class="intro en" lang="en">Shinra Hyakkei ("one hundred views of all nature") follows the old Japanese habit of
     gathering a hundred views of one subject. Each view — a creature, a name for rain or wind, a vegetable, a way of working
     the soil, a phase of the Moon or Sun — opens onto paintings, writings and present-day photographs from many places and
-    times, each with its museum or source and licence. The guide, Aoi, is an AI: it only points the way and quotes this page,
-    and adds no facts of its own. Pages are in Japanese; titles carry English where the museum gives one.</p>
+    times, each with its museum or source and licence. The guide, Aoi, is a yorishiro — a vessel between people and nature — who only points the way and
+    quotes this page, and adds no facts of its own. Pages are in Japanese; titles carry English where the museum gives one.</p>
     <div class="count" id="cnt"></div>
   </header>
-  <section class="aoi-card" id="aoiCard" aria-label="案内役の碧（AI）">
-    <div class="aoi-pic"><img src="assets/aoi/bust.webp" alt="碧（AI）の姿" width="300" height="366" decoding="async"></div>
+  <section class="aoi-card" id="aoiCard" aria-label="案内役の碧">
+    <div class="aoi-pic"><img src="assets/aoi/bust.webp" alt="碧の姿" width="300" height="366" decoding="async"></div>
     <div class="aoi-body">
-      <div class="aoi-name"><b>碧（AI）</b> 案内役</div>
+      <div class="aoi-name"><b>碧</b>（あおい）｜依代</div>
       <div class="aoi-say" aria-live="polite"><p>どの景から見ますか。</p></div>
       <div class="aoi-acts"></div>
-      <div class="aoi-note">碧（AI）は、このページの文から案内しています。</div>
+      <div class="aoi-note">碧は、このページの文から案内しています。</div>
     </div>
   </section>
 
@@ -214,7 +246,7 @@
         <span class="gnm serif">つち百景</span>
         <span class="gds">土のいとなみ一つが、一つの景</span>
         <span class="gen" lang="en">One view for each way people live with the soil</span>
-        <span class="gnum"><b>19</b><i>景</i><s>·</s><b>138</b><i>作品</i></span>
+        <span class="gnum"><b>19</b><i>景</i><s>·</s><i>作品</i><b>138</b><i>点</i></span>
         
       </span>
     </a>
@@ -227,7 +259,7 @@
         <span class="gnm serif">あめ百景</span>
         <span class="gds">世界の雨の名前、一つが一つの景</span>
         <span class="gen" lang="en">The world&#x27;s names for rain, one view each</span>
-        <span class="gnum"><b>32</b><i>景</i><s>·</s><b>90</b><i>作品</i></span>
+        <span class="gnum"><b>32</b><i>景</i><s>·</s><i>作品</i><b>90</b><i>点</i></span>
         <span class="gsub">うち絵と文学のある景 13</span>
       </span>
     </a>
@@ -240,7 +272,7 @@
         <span class="gnm serif">かぜ百景</span>
         <span class="gds">世界の風の名前、一つが一つの景</span>
         <span class="gen" lang="en">The world&#x27;s names for wind, one view each</span>
-        <span class="gnum"><b>24</b><i>景</i><s>·</s><b>80</b><i>作品</i></span>
+        <span class="gnum"><b>24</b><i>景</i><s>·</s><i>作品</i><b>80</b><i>点</i></span>
         <span class="gsub">うち絵と文学のある景 12</span>
       </span>
     </a>
@@ -253,7 +285,7 @@
         <span class="gnm serif">ゆき百景</span>
         <span class="gds">世界の雪の名前、一つが一つの景</span>
         <span class="gen" lang="en">The world&#x27;s names for snow, one view each</span>
-        <span class="gnum"><b>22</b><i>景</i><s>·</s><b>56</b><i>作品</i></span>
+        <span class="gnum"><b>22</b><i>景</i><s>·</s><i>作品</i><b>56</b><i>点</i></span>
         <span class="gsub">うち絵と文学のある景 8</span>
       </span>
     </a>
@@ -266,7 +298,7 @@
         <span class="gnm serif">いきもの百景</span>
         <span class="gds">いきもの一つが、一つの景</span>
         <span class="gen" lang="en">One view for each living thing</span>
-        <span class="gnum"><b>31</b><i>景</i><s>·</s><b>275</b><i>作品</i></span>
+        <span class="gnum"><b>31</b><i>景</i><s>·</s><i>作品</i><b>275</b><i>点</i></span>
         
       </span>
     </a>
@@ -279,7 +311,7 @@
         <span class="gnm serif">やさい百景</span>
         <span class="gds">やさい一つが、一つの景</span>
         <span class="gen" lang="en">One view for each vegetable</span>
-        <span class="gnum"><b>16</b><i>景</i><s>·</s><b>112</b><i>作品</i></span>
+        <span class="gnum"><b>16</b><i>景</i><s>·</s><i>作品</i><b>112</b><i>点</i></span>
         
       </span>
     </a>
@@ -292,7 +324,7 @@
         <span class="gnm serif">つき百景</span>
         <span class="gds">月の見え方一つが、一つの景</span>
         <span class="gen" lang="en">One view for each way the Moon appears</span>
-        <span class="gnum"><b>10</b><i>景</i><s>·</s><b>70</b><i>作品</i></span>
+        <span class="gnum"><b>10</b><i>景</i><s>·</s><i>作品</i><b>70</b><i>点</i></span>
         
       </span>
     </a>
@@ -305,7 +337,7 @@
         <span class="gnm serif">たいよう百景</span>
         <span class="gds">太陽の見え方一つが、一つの景</span>
         <span class="gen" lang="en">One view for each way the Sun appears</span>
-        <span class="gnum"><b>10</b><i>景</i><s>·</s><b>70</b><i>作品</i></span>
+        <span class="gnum"><b>10</b><i>景</i><s>·</s><i>作品</i><b>70</b><i>点</i></span>
         
       </span>
     </a>
@@ -330,127 +362,127 @@
   <div class="th"><img src="assets/thumb/tsuchi/tagayasu_a2.jpg" alt="耕す" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='tsuchi/assets/tagayasu_a2.jpg'"></div>
   <div class="tx"><div class="ap">つち百景　第一景</div>
     <div class="nm serif">耕す</div>
-    <div class="yo"><span>たがやす ── To till the soil</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>たがやす ── To till the soil</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="tsuchi/index.html#kei=ta" data-app="つち百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|500〜1500|いま" data-cults="日本" data-cells="日本×1500〜1800|日本×1800〜1900|日本×500〜1500|日本×いま" style="--ac:#c2a077">
   <div class="th"><img src="assets/thumb/tsuchi/ta_a3.jpg" alt="田" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='tsuchi/assets/ta_a3.jpg'"></div>
   <div class="tx"><div class="ap">つち百景　第二景</div>
     <div class="nm serif">田</div>
-    <div class="yo"><span>た ── Rice field</span></div><span class="kb">景 6</span></div></a>
+    <div class="yo"><span>た ── Rice field</span></div><span class="kb">作品 6</span></div></a>
 <a class="it" href="tsuchi/index.html#kei=utsuwa" data-app="つち百景" data-kei="1" data-rg="" data-bands="1500〜1800|500〜1500|いま|前500〜500|前500以前" data-cults="南アジア|日本" data-cells="南アジア×いま|日本×1500〜1800|日本×500〜1500|日本×前500〜500|日本×前500以前" style="--ac:#c2a077">
   <div class="th"><img src="assets/thumb/tsuchi/utsuwa_a1.jpg" alt="うつわ" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='tsuchi/assets/utsuwa_a1.jpg'"></div>
   <div class="tx"><div class="ap">つち百景　第三景</div>
     <div class="nm serif">うつわ</div>
-    <div class="yo"><span>うつわ ── Vessels born of earth</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>うつわ ── Vessels born of earth</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="tsuchi/index.html#kei=michi" data-app="つち百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|500〜1500|いま" data-cults="ヨーロッパ|日本" data-cells="ヨーロッパ×1500〜1800|ヨーロッパ×1800〜1900|日本×1500〜1800|日本×1800〜1900|日本×500〜1500|日本×いま" style="--ac:#c2a077">
   <div class="th"><img src="assets/thumb/tsuchi/michi_a2.jpg" alt="みち" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='tsuchi/assets/michi_a2.jpg'"></div>
   <div class="tx"><div class="ap">つち百景　第四景</div>
     <div class="nm serif">みち</div>
-    <div class="yo"><span>みち ── Paths of earth</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>みち ── Paths of earth</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="tsuchi/index.html#kei=tane" data-app="つち百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|1900〜2000|いま|前500〜500" data-cults="アフリカ|ヨーロッパ|中国|南北アメリカ|日本" data-cells="アフリカ×いま|ヨーロッパ×1500〜1800|ヨーロッパ×前500〜500|中国×1500〜1800|南北アメリカ×1800〜1900|南北アメリカ×1900〜2000|日本×1500〜1800" style="--ac:#c2a077">
   <div class="th"><img src="assets/thumb/tsuchi/tane_a3.jpg" alt="種" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='tsuchi/assets/tane_a3.jpg'"></div>
   <div class="tx"><div class="ap">つち百景　第五景</div>
     <div class="nm serif">種</div>
-    <div class="yo"><span>たね ── Seed / sowing</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>たね ── Seed / sowing</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="tsuchi/index.html#kei=hatake" data-app="つち百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|500〜1500|いま" data-cults="ヨーロッパ|日本" data-cells="ヨーロッパ×1500〜1800|ヨーロッパ×1800〜1900|日本×1800〜1900|日本×500〜1500|日本×いま" style="--ac:#c2a077">
   <div class="th"><img src="assets/thumb/tsuchi/hatake_a2.jpg" alt="畑" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='tsuchi/assets/hatake_a2.jpg'"></div>
   <div class="tx"><div class="ap">つち百景　第六景</div>
     <div class="nm serif">畑</div>
-    <div class="yo"><span>はたけ ── Dry field</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>はたけ ── Dry field</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="tsuchi/index.html#kei=doro" data-app="つち百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|1900〜2000|500〜1500|いま" data-cults="ヨーロッパ|南北アメリカ|日本" data-cells="ヨーロッパ×1900〜2000|南北アメリカ×1800〜1900|日本×1500〜1800|日本×1800〜1900|日本×500〜1500|日本×いま" style="--ac:#c2a077">
   <div class="th"><img src="assets/thumb/tsuchi/doro_a2.jpg" alt="泥" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='tsuchi/assets/doro_a2.jpg'"></div>
   <div class="tx"><div class="ap">つち百景　第七景</div>
     <div class="nm serif">泥</div>
-    <div class="yo"><span>どろ ── Mud</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>どろ ── Mud</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="tsuchi/index.html#kei=ishi" data-app="つち百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|500〜1500|いま" data-cults="中国|南北アメリカ|日本" data-cells="中国×500〜1500|南北アメリカ×1800〜1900|日本×1500〜1800|日本×1800〜1900|日本×500〜1500|日本×いま" style="--ac:#c2a077">
   <div class="th"><img src="assets/thumb/tsuchi/ishi_a1.jpg" alt="石" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='tsuchi/assets/ishi_a1.jpg'"></div>
   <div class="tx"><div class="ap">つち百景　第八景</div>
     <div class="nm serif">石</div>
-    <div class="yo"><span>いし ── Stone</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>いし ── Stone</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="tsuchi/index.html#kei=shio" data-app="つち百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|1900〜2000|500〜1500|いま" data-cults="アフリカ|中国|南北アメリカ|日本" data-cells="アフリカ×1900〜2000|アフリカ×500〜1500|中国×1500〜1800|南北アメリカ×いま|日本×1500〜1800|日本×1800〜1900|日本×500〜1500" style="--ac:#c2a077">
   <div class="th"><img src="assets/thumb/tsuchi/shio_a4.jpg" alt="塩" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='tsuchi/assets/shio_a4.jpg'"></div>
   <div class="tx"><div class="ap">つち百景　第九景</div>
     <div class="nm serif">塩</div>
-    <div class="yo"><span>しお ── Salt</span></div><span class="kb">景 9</span></div></a>
+    <div class="yo"><span>しお ── Salt</span></div><span class="kb">作品 9</span></div></a>
 <a class="it" href="tsuchi/index.html#kei=tsukikatame" data-app="つち百景" data-kei="1" data-rg="" data-bands="1900〜2000|いま|前500以前" data-cults="アフリカ|中国|中央アジア・モンゴル|西アジア・エジプト" data-cells="アフリカ×1900〜2000|中国×いま|中国×前500以前|中央アジア・モンゴル×1900〜2000|西アジア・エジプト×前500以前" style="--ac:#c2a077">
   <div class="th"><img src="assets/thumb/tsuchi/tsukikatame_a2.jpg" alt="版築" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='tsuchi/assets/tsukikatame_a2.jpg'"></div>
   <div class="tx"><div class="ap">つち百景　第十景</div>
     <div class="nm serif">版築</div>
-    <div class="yo"><span>はんちく ── Rammed earth</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>はんちく ── Rammed earth</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="tsuchi/index.html#kei=sumi" data-app="つち百景" data-kei="1" data-rg="" data-bands="1800〜1900|500〜1500|いま|前500〜500|前500以前" data-cults="アフリカ|ヨーロッパ|南北アメリカ|日本|西アジア・エジプト" data-cells="アフリカ×1800〜1900|アフリカ×いま|ヨーロッパ×前500〜500|南北アメリカ×1800〜1900|南北アメリカ×500〜1500|日本×1800〜1900|西アジア・エジプト×前500以前" style="--ac:#c2a077">
   <div class="th"><img src="assets/thumb/tsuchi/sumi_a2.jpg" alt="炭" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='tsuchi/assets/sumi_a2.jpg'"></div>
   <div class="tx"><div class="ap">つち百景　第十一景</div>
     <div class="nm serif">炭</div>
-    <div class="yo"><span>すみ ── Sumi · charcoal</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>すみ ── Sumi · charcoal</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="tsuchi/index.html#kei=koe" data-app="つち百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|500〜1500|いま|前500〜500" data-cults="ヨーロッパ|中国|南アジア|南北アメリカ" data-cells="ヨーロッパ×1500〜1800|ヨーロッパ×1800〜1900|ヨーロッパ×前500〜500|中国×500〜1500|中国×前500〜500|南アジア×いま|南北アメリカ×前500〜500" style="--ac:#c2a077">
   <div class="th"><img src="assets/thumb/tsuchi/koe_a1.jpg" alt="肥" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='tsuchi/assets/koe_a1.jpg'"></div>
   <div class="tx"><div class="ap">つち百景　第十二景</div>
     <div class="nm serif">肥</div>
-    <div class="yo"><span>こえ ── Manure</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>こえ ── Manure</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="tsuchi/index.html#kei=gake" data-app="つち百景" data-kei="1" data-rg="" data-bands="1800〜1900|いま" data-cults="ヨーロッパ|南北アメリカ|日本" data-cells="ヨーロッパ×1800〜1900|南北アメリカ×1800〜1900|日本×いま" style="--ac:#c2a077">
   <div class="th"><img src="assets/thumb/tsuchi/gake_a1.jpg" alt="崖" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='tsuchi/assets/gake_a1.jpg'"></div>
   <div class="tx"><div class="ap">つち百景　第十三景</div>
     <div class="nm serif">崖</div>
-    <div class="yo"><span>がけ ── Gake · cliff</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>がけ ── Gake · cliff</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="tsuchi/index.html#kei=ni" data-app="つち百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|500〜1500|いま|前500〜500|前500以前" data-cults="アフリカ|オセアニア・太平洋|南アジア|日本|西アジア・エジプト" data-cells="アフリカ×前500以前|オセアニア・太平洋×1800〜1900|オセアニア・太平洋×いま|南アジア×1500〜1800|南アジア×前500〜500|日本×500〜1500|西アジア・エジプト×前500以前" style="--ac:#c2a077">
   <div class="th"><img src="assets/thumb/tsuchi/ni_p1.jpg" alt="丹" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='tsuchi/assets/ni_p1.jpg'"></div>
   <div class="tx"><div class="ap">つち百景　第十四景</div>
     <div class="nm serif">丹</div>
-    <div class="yo"><span>に ── Ni · red earth</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>に ── Ni · red earth</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="tsuchi/index.html#kei=dorozome" data-app="つち百景" data-kei="1" data-rg="" data-bands="1800〜1900|1900〜2000|いま" data-cults="アフリカ|中国|日本|東南アジア" data-cells="アフリカ×1900〜2000|アフリカ×いま|中国×1800〜1900|中国×1900〜2000|日本×1900〜2000|東南アジア×1900〜2000" style="--ac:#c2a077">
   <div class="th"><img src="assets/thumb/tsuchi/dorozome_a3.jpg" alt="泥染め" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='tsuchi/assets/dorozome_a3.jpg'"></div>
   <div class="tx"><div class="ap">つち百景　第十五景</div>
     <div class="nm serif">泥染め</div>
-    <div class="yo"><span>どろぞめ ── Dorozome · mud dyeing</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>どろぞめ ── Dorozome · mud dyeing</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="tsuchi/index.html#kei=kawara" data-app="つち百景" data-kei="1" data-rg="" data-bands="500〜1500|いま|前500〜500" data-cults="ヨーロッパ|中国|日本|朝鮮半島|東南アジア" data-cells="ヨーロッパ×前500〜500|中国×前500〜500|日本×500〜1500|朝鮮半島×500〜1500|朝鮮半島×いま|東南アジア×500〜1500" style="--ac:#c2a077">
   <div class="th"><img src="assets/thumb/tsuchi/kawara_a3.jpg" alt="瓦" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='tsuchi/assets/kawara_a3.jpg'"></div>
   <div class="tx"><div class="ap">つち百景　第十六景</div>
     <div class="nm serif">瓦</div>
-    <div class="yo"><span>かわら ── Kawara · roof tile</span></div><span class="kb">景 8</span></div></a>
+    <div class="yo"><span>かわら ── Kawara · roof tile</span></div><span class="kb">作品 8</span></div></a>
 <a class="it" href="tsuchi/index.html#kei=tsuka" data-app="つち百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|いま|前500〜500|前500以前" data-cults="ヨーロッパ|中央アジア・モンゴル|南北アメリカ|日本|朝鮮半島" data-cells="ヨーロッパ×前500〜500|中央アジア・モンゴル×前500以前|南北アメリカ×1500〜1800|南北アメリカ×1800〜1900|日本×いま|日本×前500〜500|朝鮮半島×前500〜500|朝鮮半島×前500以前" style="--ac:#c2a077">
   <div class="th"><img src="assets/thumb/tsuchi/tsuka_a5.jpg" alt="塚" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='tsuchi/assets/tsuka_a5.jpg'"></div>
   <div class="tx"><div class="ap">つち百景　第十七景</div>
     <div class="nm serif">塚</div>
-    <div class="yo"><span>つか ── Tsuka · mound</span></div><span class="kb">景 8</span></div></a>
+    <div class="yo"><span>つか ── Tsuka · mound</span></div><span class="kb">作品 8</span></div></a>
 <a class="it" href="tsuchi/index.html#kei=tsutsumi" data-app="つち百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|500〜1500|いま|前500〜500" data-cults="ヨーロッパ|中国|南アジア|日本|東南アジア" data-cells="ヨーロッパ×1500〜1800|中国×1500〜1800|中国×前500〜500|南アジア×いま|日本×1800〜1900|東南アジア×500〜1500" style="--ac:#c2a077">
   <div class="th"><img src="assets/thumb/tsuchi/tsutsumi_a3.jpg" alt="堤" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='tsuchi/assets/tsutsumi_a3.jpg'"></div>
   <div class="tx"><div class="ap">つち百景　第十八景</div>
     <div class="nm serif">堤</div>
-    <div class="yo"><span>つつみ ── Tsutsumi · embankment</span></div><span class="kb">景 8</span></div></a>
+    <div class="yo"><span>つつみ ── Tsutsumi · embankment</span></div><span class="kb">作品 8</span></div></a>
 <a class="it" href="tsuchi/index.html#kei=ido" data-app="つち百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|1900〜2000|500〜1500|いま|前500〜500" data-cults="アフリカ|南アジア|朝鮮半島|西アジア・エジプト" data-cells="アフリカ×1900〜2000|南アジア×1500〜1800|南アジア×1800〜1900|南アジア×500〜1500|朝鮮半島×1500〜1800|西アジア・エジプト×1900〜2000|西アジア・エジプト×いま|西アジア・エジプト×前500〜500" style="--ac:#c2a077">
   <div class="th"><img src="assets/thumb/tsuchi/ido_a3.jpg" alt="井戸" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='tsuchi/assets/ido_a3.jpg'"></div>
   <div class="tx"><div class="ap">つち百景　第十九景</div>
     <div class="nm serif">井戸</div>
-    <div class="yo"><span>いど ── Ido · well</span></div><span class="kb">景 8</span></div></a>
+    <div class="yo"><span>いど ── Ido · well</span></div><span class="kb">作品 8</span></div></a>
 <a class="it" href="ame/index.html#w=%E6%99%82%E9%9B%A8" data-app="あめ百景" data-kei="1" data-rg="日本" data-bands="1500〜1800|1800〜1900|500〜1500|いま" data-cults="日本" data-cells="日本×1500〜1800|日本×1800〜1900|日本×500〜1500|日本×いま" style="--ac:#9db8d4">
   <div class="th"><img src="assets/thumb/ame/shigure_a2.jpg" alt="時雨" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='ame/assets/shigure_a2.jpg'"></div>
   <div class="tx"><div class="ap">あめ百景　第一景</div>
     <div class="nm serif">時雨</div>
-    <div class="yo"><i style="background:#e8b45f"></i><span>しぐれ ── 日本語</span></div><span class="kb">景 6</span></div></a>
+    <div class="yo"><i style="background:#e8b45f"></i><span>しぐれ ── 日本語</span></div><span class="kb">作品 6</span></div></a>
 <a class="it" href="ame/index.html#w=%E4%BA%94%E6%9C%88%E9%9B%A8" data-app="あめ百景" data-kei="1" data-rg="日本" data-bands="1500〜1800|1800〜1900|いま" data-cults="日本" data-cells="日本×1500〜1800|日本×1800〜1900|日本×いま" style="--ac:#9db8d4">
   <div class="th"><img src="assets/thumb/ame/samidare_a3.jpg" alt="五月雨" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='ame/assets/samidare_a3.jpg'"></div>
   <div class="tx"><div class="ap">あめ百景　第二景</div>
     <div class="nm serif">五月雨</div>
-    <div class="yo"><i style="background:#e8b45f"></i><span>さみだれ ── 日本語</span></div><span class="kb">景 6</span></div></a>
+    <div class="yo"><i style="background:#e8b45f"></i><span>さみだれ ── 日本語</span></div><span class="kb">作品 6</span></div></a>
 <a class="it" href="ame/index.html#w=%E5%A4%95%E7%AB%8B" data-app="あめ百景" data-kei="1" data-rg="日本" data-bands="1500〜1800|1800〜1900|500〜1500|いま" data-cults="日本" data-cells="日本×1500〜1800|日本×1800〜1900|日本×500〜1500|日本×いま" style="--ac:#9db8d4">
   <div class="th"><img src="assets/thumb/ame/yudachi_a4.jpg" alt="夕立" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='ame/assets/yudachi_a4.jpg'"></div>
   <div class="tx"><div class="ap">あめ百景　第三景</div>
     <div class="nm serif">夕立</div>
-    <div class="yo"><i style="background:#e8b45f"></i><span>ゆうだち ── 日本語</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><i style="background:#e8b45f"></i><span>ゆうだち ── 日本語</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="ame/index.html#w=%E6%9D%91%E9%9B%A8" data-app="あめ百景" data-kei="1" data-rg="日本" data-bands="1500〜1800|1800〜1900|500〜1500|いま" data-cults="日本" data-cells="日本×1500〜1800|日本×1800〜1900|日本×500〜1500|日本×いま" style="--ac:#9db8d4">
   <div class="th"><img src="assets/thumb/ame/murasame_a4.jpg" alt="村雨" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='ame/assets/murasame_a4.jpg'"></div>
   <div class="tx"><div class="ap">あめ百景　第四景</div>
     <div class="nm serif">村雨</div>
-    <div class="yo"><i style="background:#e8b45f"></i><span>むらさめ ── 日本語</span></div><span class="kb">景 6</span></div></a>
+    <div class="yo"><i style="background:#e8b45f"></i><span>むらさめ ── 日本語</span></div><span class="kb">作品 6</span></div></a>
 <a class="it" href="ame/index.html#w=%E6%98%A5%E9%9B%A8" data-app="あめ百景" data-kei="1" data-rg="日本" data-bands="1500〜1800|1800〜1900|1900〜2000|500〜1500|いま" data-cults="ヨーロッパ|日本" data-cells="ヨーロッパ×1500〜1800|日本×1500〜1800|日本×1800〜1900|日本×1900〜2000|日本×500〜1500|日本×いま" style="--ac:#9db8d4">
   <div class="th"><img src="assets/thumb/ame/harusame_a3.jpg" alt="春雨" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='ame/assets/harusame_a3.jpg'"></div>
   <div class="tx"><div class="ap">あめ百景　第五景</div>
     <div class="nm serif">春雨</div>
-    <div class="yo"><i style="background:#e8b45f"></i><span>はるさめ ── 日本語</span></div><span class="kb">景 6</span></div></a>
+    <div class="yo"><i style="background:#e8b45f"></i><span>はるさめ ── 日本語</span></div><span class="kb">作品 6</span></div></a>
 <a class="it" href="ame/index.html#w=%E7%A7%8B%E9%9B%A8" data-app="あめ百景" data-kei="1" data-rg="日本" data-bands="1500〜1800|1800〜1900|500〜1500|いま" data-cults="ヨーロッパ|日本" data-cells="ヨーロッパ×1800〜1900|日本×1500〜1800|日本×1800〜1900|日本×500〜1500|日本×いま" style="--ac:#9db8d4">
   <div class="th"><img src="assets/thumb/ame/akisame_a2.jpg" alt="秋雨" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='ame/assets/akisame_a2.jpg'"></div>
   <div class="tx"><div class="ap">あめ百景　第六景</div>
     <div class="nm serif">秋雨</div>
-    <div class="yo"><i style="background:#e8b45f"></i><span>あきさめ ── 日本語</span></div><span class="kb">景 6</span></div></a>
+    <div class="yo"><i style="background:#e8b45f"></i><span>あきさめ ── 日本語</span></div><span class="kb">作品 6</span></div></a>
 <a class="it plain" href="ame/index.html#w=%E9%81%A3%E3%82%89%E3%81%9A%E3%81%AE%E9%9B%A8" data-app="あめ百景" data-kei="0" data-rg="日本" data-bands="" data-cults="" data-cells="" style="--ac:#9db8d4">
   <div class="th"><div class="nothumb serif" aria-hidden="true">遣</div></div>
   <div class="tx"><div class="ap">あめ百景　第七景</div>
@@ -460,7 +492,7 @@
   <div class="th"><img src="assets/thumb/ame/kirisame_a2.jpg" alt="霧雨" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='ame/assets/kirisame_a2.jpg'"></div>
   <div class="tx"><div class="ap">あめ百景　第八景</div>
     <div class="nm serif">霧雨</div>
-    <div class="yo"><i style="background:#e8b45f"></i><span>きりさめ ── 日本語</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><i style="background:#e8b45f"></i><span>きりさめ ── 日本語</span></div><span class="kb">作品 7</span></div></a>
 <a class="it plain" href="ame/index.html#w=%E5%B0%8F%E7%B3%A0%E9%9B%A8" data-app="あめ百景" data-kei="0" data-rg="日本" data-bands="" data-cults="" data-cells="" style="--ac:#9db8d4">
   <div class="th"><div class="nothumb serif" aria-hidden="true">小</div></div>
   <div class="tx"><div class="ap">あめ百景　第九景</div>
@@ -470,7 +502,7 @@
   <div class="th"><img src="assets/thumb/ame/kitsune_a1.jpg" alt="狐の嫁入り" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='ame/assets/kitsune_a1.jpg'"></div>
   <div class="tx"><div class="ap">あめ百景　第十景</div>
     <div class="nm serif">狐の嫁入り</div>
-    <div class="yo"><i style="background:#e8b45f"></i><span>きつねのよめいり ── 日本語</span></div><span class="kb">景 5</span></div></a>
+    <div class="yo"><i style="background:#e8b45f"></i><span>きつねのよめいり ── 日本語</span></div><span class="kb">作品 5</span></div></a>
 <a class="it plain" href="ame/index.html#w=%E7%AF%A0%E7%AA%81%E3%81%8F%E9%9B%A8" data-app="あめ百景" data-kei="0" data-rg="日本" data-bands="" data-cults="" data-cells="" style="--ac:#9db8d4">
   <div class="th"><div class="nothumb serif" aria-hidden="true">篠</div></div>
   <div class="tx"><div class="ap">あめ百景　第十一景</div>
@@ -480,7 +512,7 @@
   <div class="th"><img src="assets/thumb/ame/jiu_a4.jpg" alt="慈雨" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='ame/assets/jiu_a4.jpg'"></div>
   <div class="tx"><div class="ap">あめ百景　第十二景</div>
     <div class="nm serif">慈雨</div>
-    <div class="yo"><i style="background:#e8b45f"></i><span>じう ── 日本語</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><i style="background:#e8b45f"></i><span>じう ── 日本語</span></div><span class="kb">作品 7</span></div></a>
 <a class="it plain" href="ame/index.html#w=%E6%A2%85%E9%9B%A8" data-app="あめ百景" data-kei="0" data-rg="日本" data-bands="" data-cults="" data-cells="" style="--ac:#9db8d4">
   <div class="th"><div class="nothumb serif" aria-hidden="true">梅</div></div>
   <div class="tx"><div class="ap">あめ百景　第十三景</div>
@@ -490,7 +522,7 @@
   <div class="th"><img src="assets/thumb/ame/jangma_a5.jpg" alt="장마" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='ame/assets/jangma_a5.jpg'"></div>
   <div class="tx"><div class="ap">あめ百景　第十四景</div>
     <div class="nm serif">장마</div>
-    <div class="yo"><i style="background:#e08f9e"></i><span>チャンマ jangma ── 韓国語</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><i style="background:#e08f9e"></i><span>チャンマ jangma ── 韓国語</span></div><span class="kb">作品 7</span></div></a>
 <a class="it plain" href="ame/index.html#w=bruine" data-app="あめ百景" data-kei="0" data-rg="ヨーロッパ" data-bands="" data-cults="" data-cells="" style="--ac:#9db8d4">
   <div class="th"><div class="nothumb serif" aria-hidden="true">b</div></div>
   <div class="tx"><div class="ap">あめ百景　第十五景</div>
@@ -545,7 +577,7 @@
   <div class="th"><img src="assets/thumb/ame/garua_a3.jpg" alt="garúa" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='ame/assets/garua_a3.jpg'"></div>
   <div class="tx"><div class="ap">あめ百景　第二十五景</div>
     <div class="nm serif" lang="und">garúa</div>
-    <div class="yo"><i style="background:#b7a3e0"></i><span>ガルーア ── スペイン語</span></div><span class="kb">景 9</span></div></a>
+    <div class="yo"><i style="background:#b7a3e0"></i><span>ガルーア ── スペイン語</span></div><span class="kb">作品 9</span></div></a>
 <a class="it plain" href="ame/index.html#w=garoa" data-app="あめ百景" data-kei="0" data-rg="南アメリカ" data-bands="" data-cults="" data-cells="" style="--ac:#9db8d4">
   <div class="th"><div class="nothumb serif" aria-hidden="true">g</div></div>
   <div class="tx"><div class="ap">あめ百景　第二十六景</div>
@@ -560,12 +592,12 @@
   <div class="th"><img src="assets/thumb/ame/varsha_a2.jpg" alt="वर्षा" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='ame/assets/varsha_a2.jpg'"></div>
   <div class="tx"><div class="ap">あめ百景　第二十八景</div>
     <div class="nm serif">वर्षा</div>
-    <div class="yo"><i style="background:#e08f9e"></i><span>ヴァルシャー varṣā ── ヒンディー語</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><i style="background:#e08f9e"></i><span>ヴァルシャー varṣā ── ヒンディー語</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="ame/index.html#w=Kanilehua" data-app="あめ百景" data-kei="1" data-rg="オセアニア・太平洋" data-bands="1800〜1900|1900〜2000|いま" data-cults="オセアニア・太平洋" data-cells="オセアニア・太平洋×1800〜1900|オセアニア・太平洋×1900〜2000|オセアニア・太平洋×いま" style="--ac:#9db8d4">
   <div class="th"><img src="assets/thumb/ame/kanilehua_a3.jpg" alt="Kanilehua" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='ame/assets/kanilehua_a3.jpg'"></div>
   <div class="tx"><div class="ap">あめ百景　第二十九景</div>
     <div class="nm serif long" lang="und">Kanilehua</div>
-    <div class="yo"><i style="background:#7fcfd8"></i><span>カニレフア ── ハワイ語</span></div><span class="kb">景 11</span></div></a>
+    <div class="yo"><i style="background:#7fcfd8"></i><span>カニレフア ── ハワイ語</span></div><span class="kb">作品 11</span></div></a>
 <a class="it plain" href="ame/index.html#w=Tuahine" data-app="あめ百景" data-kei="0" data-rg="オセアニア・太平洋" data-bands="" data-cults="" data-cells="" style="--ac:#9db8d4">
   <div class="th"><div class="nothumb serif" aria-hidden="true">T</div></div>
   <div class="tx"><div class="ap">あめ百景　第三十景</div>
@@ -585,32 +617,32 @@
   <div class="th"><img src="assets/thumb/kaze/nowaki_a2.jpg" alt="野分" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='kaze/assets/nowaki_a2.jpg'"></div>
   <div class="tx"><div class="ap">かぜ百景　第一景</div>
     <div class="nm serif">野分</div>
-    <div class="yo"><i style="background:#e8b45f"></i><span>のわき ── 日本語</span></div><span class="kb">景 5</span></div></a>
+    <div class="yo"><i style="background:#e8b45f"></i><span>のわき ── 日本語</span></div><span class="kb">作品 5</span></div></a>
 <a class="it" href="kaze/index.html#w=%E6%9C%A8%E6%9E%AF%E3%82%89%E3%81%97" data-app="かぜ百景" data-kei="1" data-rg="日本" data-bands="1500〜1800|1800〜1900|1900〜2000|いま" data-cults="ヨーロッパ|日本" data-cells="ヨーロッパ×1900〜2000|日本×1500〜1800|日本×1800〜1900|日本×いま" style="--ac:#93bfa9">
   <div class="th"><img src="assets/thumb/kaze/kogarashi_a2.jpg" alt="木枯らし" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='kaze/assets/kogarashi_a2.jpg'"></div>
   <div class="tx"><div class="ap">かぜ百景　第二景</div>
     <div class="nm serif">木枯らし</div>
-    <div class="yo"><i style="background:#e8b45f"></i><span>こがらし（凩） ── 日本語</span></div><span class="kb">景 5</span></div></a>
+    <div class="yo"><i style="background:#e8b45f"></i><span>こがらし（凩） ── 日本語</span></div><span class="kb">作品 5</span></div></a>
 <a class="it" href="kaze/index.html#w=%E6%98%A5%E4%B8%80%E7%95%AA" data-app="かぜ百景" data-kei="1" data-rg="日本" data-bands="1500〜1800|1800〜1900|500〜1500|いま" data-cults="南北アメリカ|日本" data-cells="南北アメリカ×1800〜1900|日本×1500〜1800|日本×500〜1500|日本×いま" style="--ac:#93bfa9">
   <div class="th"><img src="assets/thumb/kaze/haruichiban_a2.jpg" alt="春一番" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='kaze/assets/haruichiban_a2.jpg'"></div>
   <div class="tx"><div class="ap">かぜ百景　第三景</div>
     <div class="nm serif">春一番</div>
-    <div class="yo"><i style="background:#e8b45f"></i><span>はるいちばん ── 日本語</span></div><span class="kb">景 5</span></div></a>
+    <div class="yo"><i style="background:#e8b45f"></i><span>はるいちばん ── 日本語</span></div><span class="kb">作品 5</span></div></a>
 <a class="it" href="kaze/index.html#w=%E6%9D%B1%E9%A2%A8" data-app="かぜ百景" data-kei="1" data-rg="日本" data-bands="1500〜1800|1800〜1900|1900〜2000|500〜1500|いま" data-cults="日本" data-cells="日本×1500〜1800|日本×1800〜1900|日本×1900〜2000|日本×500〜1500|日本×いま" style="--ac:#93bfa9">
   <div class="th"><img src="assets/thumb/kaze/kochi_a4.jpg" alt="東風" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='kaze/assets/kochi_a4.jpg'"></div>
   <div class="tx"><div class="ap">かぜ百景　第四景</div>
     <div class="nm serif">東風</div>
-    <div class="yo"><i style="background:#e8b45f"></i><span>こち ── 日本語</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><i style="background:#e8b45f"></i><span>こち ── 日本語</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="kaze/index.html#w=%E8%96%AB%E9%A2%A8" data-app="かぜ百景" data-kei="1" data-rg="日本" data-bands="1500〜1800|1800〜1900|500〜1500|いま" data-cults="ヨーロッパ|中国|日本" data-cells="ヨーロッパ×1800〜1900|中国×500〜1500|日本×1500〜1800|日本×1800〜1900|日本×いま" style="--ac:#93bfa9">
   <div class="th"><img src="assets/thumb/kaze/kunpu_a3.jpg" alt="薫風" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='kaze/assets/kunpu_a3.jpg'"></div>
   <div class="tx"><div class="ap">かぜ百景　第五景</div>
     <div class="nm serif">薫風</div>
-    <div class="yo"><i style="background:#e8b45f"></i><span>くんぷう ── 日本語</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><i style="background:#e8b45f"></i><span>くんぷう ── 日本語</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="kaze/index.html#w=%E5%87%AA" data-app="かぜ百景" data-kei="1" data-rg="日本" data-bands="1500〜1800|1800〜1900|500〜1500|いま" data-cults="ヨーロッパ|日本" data-cells="ヨーロッパ×1500〜1800|ヨーロッパ×1800〜1900|日本×1500〜1800|日本×1800〜1900|日本×500〜1500|日本×いま" style="--ac:#93bfa9">
   <div class="th"><img src="assets/thumb/kaze/nagi_a3.jpg" alt="凪" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='kaze/assets/nagi_a3.jpg'"></div>
   <div class="tx"><div class="ap">かぜ百景　第六景</div>
     <div class="nm serif">凪</div>
-    <div class="yo"><i style="background:#e8b45f"></i><span>なぎ ── 日本語</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><i style="background:#e8b45f"></i><span>なぎ ── 日本語</span></div><span class="kb">作品 7</span></div></a>
 <a class="it plain" href="kaze/index.html#w=%E7%96%BE%E9%A2%A8" data-app="かぜ百景" data-kei="0" data-rg="日本" data-bands="" data-cults="" data-cells="" style="--ac:#93bfa9">
   <div class="th"><div class="nothumb serif" aria-hidden="true">疾</div></div>
   <div class="tx"><div class="ap">かぜ百景　第七景</div>
@@ -625,7 +657,7 @@
   <div class="th"><img src="assets/thumb/kaze/oroshi_a3.jpg" alt="颪" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='kaze/assets/oroshi_a3.jpg'"></div>
   <div class="tx"><div class="ap">かぜ百景　第九景</div>
     <div class="nm serif">颪</div>
-    <div class="yo"><i style="background:#e8b45f"></i><span>おろし ── 日本語</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><i style="background:#e8b45f"></i><span>おろし ── 日本語</span></div><span class="kb">作品 7</span></div></a>
 <a class="it plain" href="kaze/index.html#w=%E3%82%84%E3%81%BE%E3%81%9B" data-app="かぜ百景" data-kei="0" data-rg="日本" data-bands="" data-cults="" data-cells="" style="--ac:#93bfa9">
   <div class="th"><div class="nothumb serif" aria-hidden="true">や</div></div>
   <div class="tx"><div class="ap">かぜ百景　第十景</div>
@@ -635,7 +667,7 @@
   <div class="th"><img src="assets/thumb/kaze/mistral_a2.jpg" alt="mistral" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='kaze/assets/mistral_a2.jpg'"></div>
   <div class="tx"><div class="ap">かぜ百景　第十一景</div>
     <div class="nm serif long" lang="und">mistral</div>
-    <div class="yo"><i style="background:#8fb7dc"></i><span>ミストラル ── フランス語</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><i style="background:#8fb7dc"></i><span>ミストラル ── フランス語</span></div><span class="kb">作品 7</span></div></a>
 <a class="it plain" href="kaze/index.html#w=F%C3%B6hn" data-app="かぜ百景" data-kei="0" data-rg="ヨーロッパ" data-bands="" data-cults="" data-cells="" style="--ac:#93bfa9">
   <div class="th"><div class="nothumb serif" aria-hidden="true">F</div></div>
   <div class="tx"><div class="ap">かぜ百景　第十二景</div>
@@ -645,7 +677,7 @@
   <div class="th"><img src="assets/thumb/kaze/scirocco_a1.jpg" alt="scirocco" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='kaze/assets/scirocco_a1.jpg'"></div>
   <div class="tx"><div class="ap">かぜ百景　第十三景</div>
     <div class="nm serif long" lang="und">scirocco</div>
-    <div class="yo"><i style="background:#8fb7dc"></i><span>シロッコ ── イタリア語</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><i style="background:#8fb7dc"></i><span>シロッコ ── イタリア語</span></div><span class="kb">作品 7</span></div></a>
 <a class="it plain" href="kaze/index.html#w=bora" data-app="かぜ百景" data-kei="0" data-rg="ヨーロッパ" data-bands="" data-cults="" data-cells="" style="--ac:#93bfa9">
   <div class="th"><div class="nothumb serif" aria-hidden="true">b</div></div>
   <div class="tx"><div class="ap">かぜ百景　第十四景</div>
@@ -670,12 +702,12 @@
   <div class="th"><img src="assets/thumb/kaze/zephyr_a2.jpg" alt="zephyr" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='kaze/assets/zephyr_a2.jpg'"></div>
   <div class="tx"><div class="ap">かぜ百景　第十八景</div>
     <div class="nm serif" lang="und">zephyr</div>
-    <div class="yo"><i style="background:#8fb7dc"></i><span>ゼファー ── 英語</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><i style="background:#8fb7dc"></i><span>ゼファー ── 英語</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="kaze/index.html#w=harmattan" data-app="かぜ百景" data-kei="1" data-rg="アフリカ" data-bands="1500〜1800|1800〜1900|1900〜2000|500〜1500|いま" data-cults="アフリカ" data-cells="アフリカ×1500〜1800|アフリカ×1800〜1900|アフリカ×1900〜2000|アフリカ×500〜1500|アフリカ×いま" style="--ac:#93bfa9">
   <div class="th"><img src="assets/thumb/kaze/harmattan_a1.jpg" alt="harmattan" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='kaze/assets/harmattan_a1.jpg'"></div>
   <div class="tx"><div class="ap">かぜ百景　第十九景</div>
     <div class="nm serif long" lang="und">harmattan</div>
-    <div class="yo"><i style="background:#cf8a4e"></i><span>ハルマッタン ── 西アフリカ</span></div><span class="kb">景 8</span></div></a>
+    <div class="yo"><i style="background:#cf8a4e"></i><span>ハルマッタン ── 西アフリカ</span></div><span class="kb">作品 8</span></div></a>
 <a class="it plain" href="kaze/index.html#w=chinook" data-app="かぜ百景" data-kei="0" data-rg="北アメリカ" data-bands="" data-cults="" data-cells="" style="--ac:#93bfa9">
   <div class="th"><div class="nothumb serif" aria-hidden="true">c</div></div>
   <div class="tx"><div class="ap">かぜ百景　第二十景</div>
@@ -695,7 +727,7 @@
   <div class="th"><img src="assets/thumb/kaze/buran_a2.jpg" alt="buran" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='kaze/assets/buran_a2.jpg'"></div>
   <div class="tx"><div class="ap">かぜ百景　第二十三景</div>
     <div class="nm serif" lang="und">buran</div>
-    <div class="yo"><i style="background:#e08f9e"></i><span>ブラン ── 中央アジア</span></div><span class="kb">景 8</span></div></a>
+    <div class="yo"><i style="background:#e08f9e"></i><span>ブラン ── 中央アジア</span></div><span class="kb">作品 8</span></div></a>
 <a class="it plain" href="kaze/index.html#w=makani" data-app="かぜ百景" data-kei="0" data-rg="オセアニア・太平洋" data-bands="" data-cults="" data-cells="" style="--ac:#93bfa9">
   <div class="th"><div class="nothumb serif" aria-hidden="true">m</div></div>
   <div class="tx"><div class="ap">かぜ百景　第二十四景</div>
@@ -710,12 +742,12 @@
   <div class="th"><img src="assets/thumb/yuki/botanyuki_a3.jpg" alt="牡丹雪" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='yuki/assets/botanyuki_a3.jpg'"></div>
   <div class="tx"><div class="ap">ゆき百景　第二景</div>
     <div class="nm serif">牡丹雪</div>
-    <div class="yo"><i style="background:#e8b45f"></i><span>ぼたんゆき ── 日本語</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><i style="background:#e8b45f"></i><span>ぼたんゆき ── 日本語</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="yuki/index.html#w=%E7%B4%B0%E9%9B%AA" data-app="ゆき百景" data-kei="1" data-rg="日本" data-bands="1500〜1800|1800〜1900|500〜1500|いま" data-cults="南北アメリカ|日本" data-cells="南北アメリカ×いま|日本×1500〜1800|日本×1800〜1900|日本×500〜1500" style="--ac:#b9c9da">
   <div class="th"><img src="assets/thumb/yuki/sasameyuki_a2.jpg" alt="細雪" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='yuki/assets/sasameyuki_a2.jpg'"></div>
   <div class="tx"><div class="ap">ゆき百景　第三景</div>
     <div class="nm serif">細雪</div>
-    <div class="yo"><i style="background:#e8b45f"></i><span>ささめゆき ── 日本語</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><i style="background:#e8b45f"></i><span>ささめゆき ── 日本語</span></div><span class="kb">作品 7</span></div></a>
 <a class="it plain" href="yuki/index.html#w=%E6%B7%A1%E9%9B%AA" data-app="ゆき百景" data-kei="0" data-rg="日本" data-bands="" data-cults="" data-cells="" style="--ac:#b9c9da">
   <div class="th"><div class="nothumb serif" aria-hidden="true">淡</div></div>
   <div class="tx"><div class="ap">ゆき百景　第四景</div>
@@ -725,7 +757,7 @@
   <div class="th"><img src="assets/thumb/yuki/zarameyuki_a3.jpg" alt="ざらめ雪" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='yuki/assets/zarameyuki_a3.jpg'"></div>
   <div class="tx"><div class="ap">ゆき百景　第五景</div>
     <div class="nm serif">ざらめ雪</div>
-    <div class="yo"><i style="background:#e8b45f"></i><span>ざらめゆき ── 日本語</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><i style="background:#e8b45f"></i><span>ざらめゆき ── 日本語</span></div><span class="kb">作品 7</span></div></a>
 <a class="it plain" href="yuki/index.html#w=%E9%9C%99" data-app="ゆき百景" data-kei="0" data-rg="日本" data-bands="" data-cults="" data-cells="" style="--ac:#b9c9da">
   <div class="th"><div class="nothumb serif" aria-hidden="true">霙</div></div>
   <div class="tx"><div class="ap">ゆき百景　第六景</div>
@@ -740,17 +772,17 @@
   <div class="th"><img src="assets/thumb/yuki/jifubuki_a4.jpg" alt="地吹雪" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='yuki/assets/jifubuki_a4.jpg'"></div>
   <div class="tx"><div class="ap">ゆき百景　第八景</div>
     <div class="nm serif">地吹雪</div>
-    <div class="yo"><i style="background:#e8b45f"></i><span>じふぶき ── 日本語</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><i style="background:#e8b45f"></i><span>じふぶき ── 日本語</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="yuki/index.html#w=%E9%A2%A8%E8%8A%B1" data-app="ゆき百景" data-kei="1" data-rg="日本" data-bands="1800〜1900|1900〜2000|500〜1500|いま" data-cults="南北アメリカ|日本" data-cells="南北アメリカ×1900〜2000|南北アメリカ×いま|日本×1800〜1900|日本×500〜1500" style="--ac:#b9c9da">
   <div class="th"><img src="assets/thumb/yuki/kazahana_a1.jpg" alt="風花" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='yuki/assets/kazahana_a1.jpg'"></div>
   <div class="tx"><div class="ap">ゆき百景　第九景</div>
     <div class="nm serif">風花</div>
-    <div class="yo"><i style="background:#e8b45f"></i><span>かざはな ── 日本語</span></div><span class="kb">景 6</span></div></a>
+    <div class="yo"><i style="background:#e8b45f"></i><span>かざはな ── 日本語</span></div><span class="kb">作品 6</span></div></a>
 <a class="it" href="yuki/index.html#w=%E3%81%A9%E3%81%8B%E9%9B%AA" data-app="ゆき百景" data-kei="1" data-rg="日本" data-bands="1800〜1900|いま" data-cults="ヨーロッパ|日本" data-cells="ヨーロッパ×1800〜1900|日本×1800〜1900|日本×いま" style="--ac:#b9c9da">
   <div class="th"><img src="assets/thumb/yuki/dokayuki_a1.jpg" alt="どか雪" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='yuki/assets/dokayuki_a1.jpg'"></div>
   <div class="tx"><div class="ap">ゆき百景　第十景</div>
     <div class="nm serif">どか雪</div>
-    <div class="yo"><i style="background:#e8b45f"></i><span>どかゆき ── 日本語</span></div><span class="kb">景 6</span></div></a>
+    <div class="yo"><i style="background:#e8b45f"></i><span>どかゆき ── 日本語</span></div><span class="kb">作品 6</span></div></a>
 <a class="it plain" href="yuki/index.html#w=%E5%90%8D%E6%AE%8B%E9%9B%AA" data-app="ゆき百景" data-kei="0" data-rg="日本" data-bands="" data-cults="" data-cells="" style="--ac:#b9c9da">
   <div class="th"><div class="nothumb serif" aria-hidden="true">名</div></div>
   <div class="tx"><div class="ap">ゆき百景　第十一景</div>
@@ -765,7 +797,7 @@
   <div class="th"><img src="assets/thumb/yuki/rikka_p2.jpg" alt="六花" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='yuki/assets/rikka_p2.jpg'"></div>
   <div class="tx"><div class="ap">ゆき百景　第十三景</div>
     <div class="nm serif">六花</div>
-    <div class="yo"><i style="background:#e8b45f"></i><span>りっか ── 日本語</span></div><span class="kb">景 6</span></div></a>
+    <div class="yo"><i style="background:#e8b45f"></i><span>りっか ── 日本語</span></div><span class="kb">作品 6</span></div></a>
 <a class="it plain" href="yuki/index.html#w=Pulverschnee" data-app="ゆき百景" data-kei="0" data-rg="ヨーロッパ" data-bands="" data-cults="" data-cells="" style="--ac:#b9c9da">
   <div class="th"><div class="nothumb serif" aria-hidden="true">P</div></div>
   <div class="tx"><div class="ap">ゆき百景　第十四景</div>
@@ -795,7 +827,7 @@
   <div class="th"><img src="assets/thumb/yuki/qanik_a2.jpg" alt="qanik" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='yuki/assets/qanik_a2.jpg'"></div>
   <div class="tx"><div class="ap">ゆき百景　第十九景</div>
     <div class="nm serif" lang="und">qanik</div>
-    <div class="yo"><i style="background:#93cdb4"></i><span>カニク ── イヌクティトゥット語</span></div><span class="kb">景 10</span></div></a>
+    <div class="yo"><i style="background:#93cdb4"></i><span>カニク ── イヌクティトゥット語</span></div><span class="kb">作品 10</span></div></a>
 <a class="it plain" href="yuki/index.html#w=aput" data-app="ゆき百景" data-kei="0" data-rg="北アメリカ" data-bands="" data-cults="" data-cells="" style="--ac:#b9c9da">
   <div class="th"><div class="nothumb serif" aria-hidden="true">a</div></div>
   <div class="tx"><div class="ap">ゆき百景　第二十景</div>
@@ -815,337 +847,337 @@
   <div class="th"><img src="assets/thumb/hyakkei/kyosai.jpg" alt="鴉" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='hyakkei/assets/kyosai.jpg'"></div>
   <div class="tx"><div class="ap">いきもの百景　第一景</div>
     <div class="nm serif">鴉</div>
-    <div class="yo"><span>からす ── Crow</span></div><span class="kb">景 14</span></div></a>
+    <div class="yo"><span>からす ── Crow</span></div><span class="kb">作品 14</span></div></a>
 <a class="it" href="hyakkei/index.html#kei=tsubame" data-app="いきもの百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|500〜1500" data-cults="ヨーロッパ|中国|南北アメリカ|日本" data-cells="ヨーロッパ×1800〜1900|中国×500〜1500|南北アメリカ×1800〜1900|日本×1500〜1800|日本×1800〜1900|日本×500〜1500" style="--ac:#d0a468">
   <div class="th"><img src="assets/thumb/hyakkei/tsubame03.jpg" alt="燕" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='hyakkei/assets/tsubame03.jpg'"></div>
   <div class="tx"><div class="ap">いきもの百景　第二景</div>
     <div class="nm serif">燕</div>
-    <div class="yo"><span>つばめ ── Swallow</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>つばめ ── Swallow</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="hyakkei/index.html#kei=kaeru" data-app="いきもの百景" data-kei="1" data-rg="" data-bands="1500〜1800|1900〜2000|500〜1500|前500〜500|前500以前" data-cults="ヨーロッパ|南アジア|南北アメリカ|西アジア・エジプト" data-cells="ヨーロッパ×1900〜2000|南アジア×1500〜1800|南北アメリカ×500〜1500|南北アメリカ×前500〜500|西アジア・エジプト×前500以前" style="--ac:#d0a468">
   <div class="th"><img src="assets/thumb/hyakkei/kaeru03.jpg" alt="蛙" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='hyakkei/assets/kaeru03.jpg'"></div>
   <div class="tx"><div class="ap">いきもの百景　第三景</div>
     <div class="nm serif">蛙</div>
-    <div class="yo"><span>かえる ── Frog</span></div><span class="kb">景 6</span></div></a>
+    <div class="yo"><span>かえる ── Frog</span></div><span class="kb">作品 6</span></div></a>
 <a class="it" href="hyakkei/index.html#kei=chou" data-app="いきもの百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|500〜1500|前500以前" data-cults="ヨーロッパ|中国|南北アメリカ|日本|西アジア・エジプト" data-cells="ヨーロッパ×500〜1500|中国×1500〜1800|中国×500〜1500|南北アメリカ×1800〜1900|日本×1500〜1800|西アジア・エジプト×前500以前" style="--ac:#d0a468">
   <div class="th"><img src="assets/thumb/hyakkei/chou02.jpg" alt="蝶" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='hyakkei/assets/chou02.jpg'"></div>
   <div class="tx"><div class="ap">いきもの百景　第四景</div>
     <div class="nm serif">蝶</div>
-    <div class="yo"><span>ちょう ── Butterfly</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>ちょう ── Butterfly</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="hyakkei/index.html#kei=matsu" data-app="いきもの百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|500〜1500" data-cults="ヨーロッパ|中国|日本" data-cells="ヨーロッパ×1800〜1900|中国×1500〜1800|中国×500〜1500|日本×1500〜1800|日本×1800〜1900" style="--ac:#d0a468">
   <div class="th"><img src="assets/thumb/hyakkei/matsu02.jpg" alt="松" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='hyakkei/assets/matsu02.jpg'"></div>
   <div class="tx"><div class="ap">いきもの百景　第五景</div>
     <div class="nm serif">松</div>
-    <div class="yo"><span>まつ ── Pine</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>まつ ── Pine</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="hyakkei/index.html#kei=tsuru" data-app="いきもの百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|500〜1500|前500〜500" data-cults="中国|南アジア|南北アメリカ|日本|朝鮮半島" data-cells="中国×500〜1500|中国×前500〜500|南アジア×1500〜1800|南北アメリカ×1800〜1900|日本×1500〜1800|日本×1800〜1900|朝鮮半島×1800〜1900|朝鮮半島×500〜1500" style="--ac:#d0a468">
   <div class="th"><img src="assets/thumb/hyakkei/tsuru06.jpg" alt="鶴" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='hyakkei/assets/tsuru06.jpg'"></div>
   <div class="tx"><div class="ap">いきもの百景　第六景</div>
     <div class="nm serif">鶴</div>
-    <div class="yo"><span>つる ── Crane</span></div><span class="kb">景 9</span></div></a>
+    <div class="yo"><span>つる ── Crane</span></div><span class="kb">作品 9</span></div></a>
 <a class="it" href="hyakkei/index.html#kei=neko" data-app="いきもの百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|1900〜2000|前500以前" data-cults="ヨーロッパ|中国|日本|西アジア・エジプト" data-cells="ヨーロッパ×1500〜1800|ヨーロッパ×1800〜1900|ヨーロッパ×1900〜2000|中国×1500〜1800|日本×1500〜1800|日本×1800〜1900|西アジア・エジプト×前500以前" style="--ac:#d0a468">
   <div class="th"><img src="assets/thumb/hyakkei/neko07.jpg" alt="猫" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='hyakkei/assets/neko07.jpg'"></div>
   <div class="tx"><div class="ap">いきもの百景　第七景</div>
     <div class="nm serif">猫</div>
-    <div class="yo"><span>ねこ ── Cat</span></div><span class="kb">景 9</span></div></a>
+    <div class="yo"><span>ねこ ── Cat</span></div><span class="kb">作品 9</span></div></a>
 <a class="it" href="hyakkei/index.html#kei=koi" data-app="いきもの百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|500〜1500" data-cults="中国|日本|朝鮮半島" data-cells="中国×500〜1500|日本×1500〜1800|日本×1800〜1900|日本×500〜1500|朝鮮半島×500〜1500" style="--ac:#d0a468">
   <div class="th"><img src="assets/thumb/hyakkei/koi08.jpg" alt="鯉" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='hyakkei/assets/koi08.jpg'"></div>
   <div class="tx"><div class="ap">いきもの百景　第八景</div>
     <div class="nm serif">鯉</div>
-    <div class="yo"><span>こい ── Carp</span></div><span class="kb">景 9</span></div></a>
+    <div class="yo"><span>こい ── Carp</span></div><span class="kb">作品 9</span></div></a>
 <a class="it" href="hyakkei/index.html#kei=sakura" data-app="いきもの百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|1900〜2000" data-cults="ヨーロッパ|南北アメリカ|日本" data-cells="ヨーロッパ×1800〜1900|南北アメリカ×1900〜2000|日本×1500〜1800|日本×1800〜1900|日本×1900〜2000" style="--ac:#d0a468">
   <div class="th"><img src="assets/thumb/hyakkei/sakura05.jpg" alt="桜" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='hyakkei/assets/sakura05.jpg'"></div>
   <div class="tx"><div class="ap">いきもの百景　第九景</div>
     <div class="nm serif">桜</div>
-    <div class="yo"><span>さくら ── Cherry Blossom</span></div><span class="kb">景 9</span></div></a>
+    <div class="yo"><span>さくら ── Cherry Blossom</span></div><span class="kb">作品 9</span></div></a>
 <a class="it" href="hyakkei/index.html#kei=ine" data-app="いきもの百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|1900〜2000|いま" data-cults="中国|南北アメリカ|日本" data-cells="中国×1500〜1800|南北アメリカ×1800〜1900|日本×1500〜1800|日本×1800〜1900|日本×1900〜2000|日本×いま" style="--ac:#d0a468">
   <div class="th"><img src="assets/thumb/hyakkei/ine06.jpg" alt="稲" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='hyakkei/assets/ine06.jpg'"></div>
   <div class="tx"><div class="ap">いきもの百景　第十景</div>
     <div class="nm serif">稲</div>
-    <div class="yo"><span>いね ── Rice plant</span></div><span class="kb">景 9</span></div></a>
+    <div class="yo"><span>いね ── Rice plant</span></div><span class="kb">作品 9</span></div></a>
 <a class="it" href="hyakkei/index.html#kei=usagi" data-app="いきもの百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|500〜1500|いま" data-cults="ヨーロッパ|中国|日本|西アジア・エジプト" data-cells="ヨーロッパ×1800〜1900|ヨーロッパ×500〜1500|中国×500〜1500|日本×1500〜1800|日本×1800〜1900|日本×いま|西アジア・エジプト×500〜1500" style="--ac:#d0a468">
   <div class="th"><img src="assets/thumb/hyakkei/usagi06.jpg" alt="兎" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='hyakkei/assets/usagi06.jpg'"></div>
   <div class="tx"><div class="ap">いきもの百景　第十一景</div>
     <div class="nm serif">兎</div>
-    <div class="yo"><span>うさぎ ── Hare / Rabbit</span></div><span class="kb">景 9</span></div></a>
+    <div class="yo"><span>うさぎ ── Hare / Rabbit</span></div><span class="kb">作品 9</span></div></a>
 <a class="it" href="hyakkei/index.html#kei=hotaru" data-app="いきもの百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|500〜1500|いま" data-cults="南北アメリカ|日本" data-cells="南北アメリカ×500〜1500|日本×1500〜1800|日本×1800〜1900|日本×いま" style="--ac:#d0a468">
   <div class="th"><img src="assets/thumb/hyakkei/hotaru04.jpg" alt="蛍" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='hyakkei/assets/hotaru04.jpg'"></div>
   <div class="tx"><div class="ap">いきもの百景　第十二景</div>
     <div class="nm serif">蛍</div>
-    <div class="yo"><span>ほたる ── Firefly</span></div><span class="kb">景 9</span></div></a>
+    <div class="yo"><span>ほたる ── Firefly</span></div><span class="kb">作品 9</span></div></a>
 <a class="it" href="hyakkei/index.html#kei=shika" data-app="いきもの百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|500〜1500|いま|前500〜500" data-cults="ヨーロッパ|中国|南北アメリカ|日本|西アジア・エジプト" data-cells="ヨーロッパ×1500〜1800|ヨーロッパ×1800〜1900|中国×500〜1500|南北アメリカ×1800〜1900|日本×1500〜1800|日本×1800〜1900|日本×500〜1500|日本×いま|西アジア・エジプト×前500〜500" style="--ac:#d0a468">
   <div class="th"><img src="assets/thumb/hyakkei/shika03.jpg" alt="鹿" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='hyakkei/assets/shika03.jpg'"></div>
   <div class="tx"><div class="ap">いきもの百景　第十三景</div>
     <div class="nm serif">鹿</div>
-    <div class="yo"><span>しか ── Deer</span></div><span class="kb">景 9</span></div></a>
+    <div class="yo"><span>しか ── Deer</span></div><span class="kb">作品 9</span></div></a>
 <a class="it" href="hyakkei/index.html#kei=suzume" data-app="いきもの百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|500〜1500|いま" data-cults="ヨーロッパ|中国|日本" data-cells="ヨーロッパ×1500〜1800|ヨーロッパ×1800〜1900|中国×500〜1500|日本×1500〜1800|日本×1800〜1900|日本×いま" style="--ac:#d0a468">
   <div class="th"><img src="assets/thumb/hyakkei/suzume04.jpg" alt="雀" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='hyakkei/assets/suzume04.jpg'"></div>
   <div class="tx"><div class="ap">いきもの百景　第十四景</div>
     <div class="nm serif">雀</div>
-    <div class="yo"><span>すずめ ── Sparrow</span></div><span class="kb">景 9</span></div></a>
+    <div class="yo"><span>すずめ ── Sparrow</span></div><span class="kb">作品 9</span></div></a>
 <a class="it" href="hyakkei/index.html#kei=kame" data-app="いきもの百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|いま|前500〜500|前500以前" data-cults="ヨーロッパ|中国|日本|西アジア・エジプト" data-cells="ヨーロッパ×1500〜1800|ヨーロッパ×前500〜500|中国×前500〜500|中国×前500以前|日本×1500〜1800|日本×1800〜1900|日本×いま|西アジア・エジプト×前500以前" style="--ac:#d0a468">
   <div class="th"><img src="assets/thumb/hyakkei/kame06.jpg" alt="亀" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='hyakkei/assets/kame06.jpg'"></div>
   <div class="tx"><div class="ap">いきもの百景　第十五景</div>
     <div class="nm serif">亀</div>
-    <div class="yo"><span>かめ ── Turtle / tortoise</span></div><span class="kb">景 9</span></div></a>
+    <div class="yo"><span>かめ ── Turtle / tortoise</span></div><span class="kb">作品 9</span></div></a>
 <a class="it" href="hyakkei/index.html#kei=tombo" data-app="いきもの百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|1900〜2000|500〜1500|いま" data-cults="ヨーロッパ|中国|南北アメリカ|日本|朝鮮半島" data-cells="ヨーロッパ×1500〜1800|ヨーロッパ×1900〜2000|中国×500〜1500|南北アメリカ×1900〜2000|日本×1500〜1800|日本×1800〜1900|日本×いま|朝鮮半島×1800〜1900" style="--ac:#d0a468">
   <div class="th"><img src="assets/thumb/hyakkei/tombo04.jpg" alt="蜻蛉" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='hyakkei/assets/tombo04.jpg'"></div>
   <div class="tx"><div class="ap">いきもの百景　第十六景</div>
     <div class="nm serif">蜻蛉</div>
-    <div class="yo"><span>とんぼ ── Dragonfly</span></div><span class="kb">景 9</span></div></a>
+    <div class="yo"><span>とんぼ ── Dragonfly</span></div><span class="kb">作品 9</span></div></a>
 <a class="it" href="hyakkei/index.html#kei=tora" data-app="いきもの百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|1900〜2000|500〜1500|いま|前500〜500" data-cults="ヨーロッパ|中国|南アジア|日本|朝鮮半島" data-cells="ヨーロッパ×いま|中国×500〜1500|中国×前500〜500|南アジア×1800〜1900|日本×1500〜1800|日本×1800〜1900|朝鮮半島×1500〜1800|朝鮮半島×1800〜1900|朝鮮半島×1900〜2000" style="--ac:#d0a468">
   <div class="th"><img src="assets/thumb/hyakkei/tora07.jpg" alt="虎" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='hyakkei/assets/tora07.jpg'"></div>
   <div class="tx"><div class="ap">いきもの百景　第十七景</div>
     <div class="nm serif">虎</div>
-    <div class="yo"><span>とら ── Tiger</span></div><span class="kb">景 9</span></div></a>
+    <div class="yo"><span>とら ── Tiger</span></div><span class="kb">作品 9</span></div></a>
 <a class="it" href="hyakkei/index.html#kei=rakuda" data-app="いきもの百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|500〜1500|いま|前500〜500" data-cults="ヨーロッパ|中国|中央アジア・モンゴル|南アジア|日本|西アジア・エジプト" data-cells="ヨーロッパ×1800〜1900|中国×500〜1500|中央アジア・モンゴル×いま|南アジア×1500〜1800|日本×1800〜1900|西アジア・エジプト×1500〜1800|西アジア・エジプト×前500〜500" style="--ac:#d0a468">
   <div class="th"><img src="assets/thumb/hyakkei/rakuda07.jpg" alt="駱駝" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='hyakkei/assets/rakuda07.jpg'"></div>
   <div class="tx"><div class="ap">いきもの百景　第十八景</div>
     <div class="nm serif">駱駝</div>
-    <div class="yo"><span>らくだ ── Camel</span></div><span class="kb">景 9</span></div></a>
+    <div class="yo"><span>らくだ ── Camel</span></div><span class="kb">作品 9</span></div></a>
 <a class="it" href="hyakkei/index.html#kei=zou" data-app="いきもの百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|1900〜2000|500〜1500|いま" data-cults="アフリカ|南アジア|日本" data-cells="アフリカ×1900〜2000|アフリカ×いま|南アジア×1500〜1800|南アジア×500〜1500|日本×1500〜1800|日本×1800〜1900" style="--ac:#d0a468">
   <div class="th"><img src="assets/thumb/hyakkei/zou05.jpg" alt="象" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='hyakkei/assets/zou05.jpg'"></div>
   <div class="tx"><div class="ap">いきもの百景　第十九景</div>
     <div class="nm serif">象</div>
-    <div class="yo"><span>ぞう ── Elephant</span></div><span class="kb">景 9</span></div></a>
+    <div class="yo"><span>ぞう ── Elephant</span></div><span class="kb">作品 9</span></div></a>
 <a class="it" href="hyakkei/index.html#kei=shishi" data-app="いきもの百景" data-kei="1" data-rg="" data-bands="1500〜1800|500〜1500|いま|前500〜500|前500以前" data-cults="中国|南アジア|日本|西アジア・エジプト" data-cells="中国×500〜1500|南アジア×いま|日本×1500〜1800|西アジア・エジプト×500〜1500|西アジア・エジプト×前500〜500|西アジア・エジプト×前500以前" style="--ac:#d0a468">
   <div class="th"><img src="assets/thumb/hyakkei/shishi05.jpg" alt="獅子" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='hyakkei/assets/shishi05.jpg'"></div>
   <div class="tx"><div class="ap">いきもの百景　第二十景</div>
     <div class="nm serif">獅子</div>
-    <div class="yo"><span>しし ── Lion</span></div><span class="kb">景 9</span></div></a>
+    <div class="yo"><span>しし ── Lion</span></div><span class="kb">作品 9</span></div></a>
 <a class="it" href="hyakkei/index.html#kei=uma" data-app="いきもの百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|500〜1500|いま|前500〜500|前500以前" data-cults="ヨーロッパ|中国|中央アジア・モンゴル|南アジア|日本|西アジア・エジプト" data-cells="ヨーロッパ×1500〜1800|中国×500〜1500|中央アジア・モンゴル×500〜1500|中央アジア・モンゴル×いま|中央アジア・モンゴル×前500〜500|南アジア×1500〜1800|日本×1800〜1900|日本×500〜1500|西アジア・エジプト×前500以前" style="--ac:#d0a468">
   <div class="th"><img src="assets/thumb/hyakkei/uma04.jpg" alt="馬" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='hyakkei/assets/uma04.jpg'"></div>
   <div class="tx"><div class="ap">いきもの百景　第二十一景</div>
     <div class="nm serif">馬</div>
-    <div class="yo"><span>うま ── Horse</span></div><span class="kb">景 9</span></div></a>
+    <div class="yo"><span>うま ── Horse</span></div><span class="kb">作品 9</span></div></a>
 <a class="it" href="hyakkei/index.html#kei=kamoshika" data-app="いきもの百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|1900〜2000|500〜1500|いま|前500以前" data-cults="アフリカ|中国|南アジア|日本|西アジア・エジプト" data-cells="アフリカ×1800〜1900|アフリカ×1900〜2000|中国×500〜1500|南アジア×1500〜1800|日本×いま|西アジア・エジプト×前500以前" style="--ac:#d0a468">
   <div class="th"><img src="assets/thumb/hyakkei/kamoshika07.jpg" alt="羚羊" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='hyakkei/assets/kamoshika07.jpg'"></div>
   <div class="tx"><div class="ap">いきもの百景　第二十二景</div>
     <div class="nm serif">羚羊</div>
-    <div class="yo"><span>かもしか ── Serow</span></div><span class="kb">景 9</span></div></a>
+    <div class="yo"><span>かもしか ── Serow</span></div><span class="kb">作品 9</span></div></a>
 <a class="it" href="hyakkei/index.html#kei=kujira" data-app="いきもの百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|いま" data-cults="オセアニア・太平洋|ヨーロッパ|北極圏|南北アメリカ|日本" data-cells="オセアニア・太平洋×1500〜1800|オセアニア・太平洋×1800〜1900|ヨーロッパ×1500〜1800|北極圏×1800〜1900|南北アメリカ×いま|日本×1800〜1900" style="--ac:#d0a468">
   <div class="th"><img src="assets/thumb/hyakkei/kujira06.jpg" alt="鯨" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='hyakkei/assets/kujira06.jpg'"></div>
   <div class="tx"><div class="ap">いきもの百景　第二十三景</div>
     <div class="nm serif">鯨</div>
-    <div class="yo"><span>くじら ── Whale</span></div><span class="kb">景 9</span></div></a>
+    <div class="yo"><span>くじら ── Whale</span></div><span class="kb">作品 9</span></div></a>
 <a class="it" href="hyakkei/index.html#kei=same" data-app="いきもの百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|1900〜2000|いま|前500〜500" data-cults="アフリカ|オセアニア・太平洋|中国|南アジア|南北アメリカ|日本" data-cells="アフリカ×1800〜1900|オセアニア・太平洋×1800〜1900|オセアニア・太平洋×1900〜2000|オセアニア・太平洋×いま|中国×1800〜1900|南アジア×1500〜1800|南北アメリカ×前500〜500|日本×1800〜1900" style="--ac:#d0a468">
   <div class="th"><img src="assets/thumb/hyakkei/same01.jpg" alt="鮫" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='hyakkei/assets/same01.jpg'"></div>
   <div class="tx"><div class="ap">いきもの百景　第二十四景</div>
     <div class="nm serif">鮫</div>
-    <div class="yo"><span>さめ ── Shark</span></div><span class="kb">景 9</span></div></a>
+    <div class="yo"><span>さめ ── Shark</span></div><span class="kb">作品 9</span></div></a>
 <a class="it" href="hyakkei/index.html#kei=kuma" data-app="いきもの百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|1900〜2000|いま|前500〜500|前500以前" data-cults="ヨーロッパ|中国|北極圏|南アジア|日本|西アジア・エジプト" data-cells="ヨーロッパ×1500〜1800|ヨーロッパ×1900〜2000|ヨーロッパ×前500〜500|中国×1800〜1900|中国×前500〜500|北極圏×いま|南アジア×1500〜1800|日本×1500〜1800|西アジア・エジプト×前500以前" style="--ac:#d0a468">
   <div class="th"><img src="assets/thumb/hyakkei/kuma02.jpg" alt="熊" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='hyakkei/assets/kuma02.jpg'"></div>
   <div class="tx"><div class="ap">いきもの百景　第二十五景</div>
     <div class="nm serif">熊</div>
-    <div class="yo"><span>くま ── Bear</span></div><span class="kb">景 9</span></div></a>
+    <div class="yo"><span>くま ── Bear</span></div><span class="kb">作品 9</span></div></a>
 <a class="it" href="hyakkei/index.html#kei=washi" data-app="いきもの百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|500〜1500|いま|前500〜500|前500以前" data-cults="ヨーロッパ|中央アジア・モンゴル|南アジア|南北アメリカ|日本|西アジア・エジプト" data-cells="ヨーロッパ×前500〜500|中央アジア・モンゴル×500〜1500|中央アジア・モンゴル×いま|中央アジア・モンゴル×前500〜500|中央アジア・モンゴル×前500以前|南アジア×1500〜1800|南北アメリカ×1800〜1900|日本×1500〜1800|西アジア・エジプト×前500以前" style="--ac:#d0a468">
   <div class="th"><img src="assets/thumb/hyakkei/washi04.jpg" alt="鷲" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='hyakkei/assets/washi04.jpg'"></div>
   <div class="tx"><div class="ap">いきもの百景　第二十六景</div>
     <div class="nm serif">鷲</div>
-    <div class="yo"><span>わし ── Eagle</span></div><span class="kb">景 9</span></div></a>
+    <div class="yo"><span>わし ── Eagle</span></div><span class="kb">作品 9</span></div></a>
 <a class="it" href="hyakkei/index.html#kei=hitsuji" data-app="いきもの百景" data-kei="1" data-rg="" data-bands="1800〜1900|1900〜2000|500〜1500|いま|前500以前" data-cults="ヨーロッパ|中国|中央アジア・モンゴル|西アジア・エジプト" data-cells="ヨーロッパ×1800〜1900|ヨーロッパ×前500以前|中国×500〜1500|中央アジア・モンゴル×1800〜1900|中央アジア・モンゴル×1900〜2000|中央アジア・モンゴル×いま|西アジア・エジプト×前500以前" style="--ac:#d0a468">
   <div class="th"><img src="assets/thumb/hyakkei/hitsuji03.jpg" alt="羊" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='hyakkei/assets/hitsuji03.jpg'"></div>
   <div class="tx"><div class="ap">いきもの百景　第二十七景</div>
     <div class="nm serif">羊</div>
-    <div class="yo"><span>ひつじ ── Sheep</span></div><span class="kb">景 9</span></div></a>
+    <div class="yo"><span>ひつじ ── Sheep</span></div><span class="kb">作品 9</span></div></a>
 <a class="it" href="hyakkei/index.html#kei=hebi" data-app="いきもの百景" data-kei="1" data-rg="" data-bands="1800〜1900|500〜1500|いま|前500〜500|前500以前" data-cults="アフリカ|ヨーロッパ|中国|南アジア|南北アメリカ|日本|西アジア・エジプト" data-cells="アフリカ×1800〜1900|ヨーロッパ×前500以前|中国×いま|中国×前500〜500|南アジア×500〜1500|南北アメリカ×500〜1500|南北アメリカ×前500〜500|日本×1800〜1900|西アジア・エジプト×前500以前" style="--ac:#d0a468">
   <div class="th"><img src="assets/thumb/hyakkei/hebi02.jpg" alt="蛇" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='hyakkei/assets/hebi02.jpg'"></div>
   <div class="tx"><div class="ap">いきもの百景　第二十八景</div>
     <div class="nm serif">蛇</div>
-    <div class="yo"><span>へび ── Snake</span></div><span class="kb">景 9</span></div></a>
+    <div class="yo"><span>へび ── Snake</span></div><span class="kb">作品 9</span></div></a>
 <a class="it" href="hyakkei/index.html#kei=kai" data-app="いきもの百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|500〜1500|いま|前500〜500|前500以前" data-cults="アフリカ|オセアニア・太平洋|ヨーロッパ|南北アメリカ|朝鮮半島" data-cells="アフリカ×1800〜1900|アフリカ×前500〜500|オセアニア・太平洋×1800〜1900|オセアニア・太平洋×いま|ヨーロッパ×1500〜1800|ヨーロッパ×前500以前|南北アメリカ×前500〜500|朝鮮半島×500〜1500" style="--ac:#d0a468">
   <div class="th"><img src="assets/thumb/hyakkei/kai02.jpg" alt="貝" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='hyakkei/assets/kai02.jpg'"></div>
   <div class="tx"><div class="ap">いきもの百景　第二十九景</div>
     <div class="nm serif">貝</div>
-    <div class="yo"><span>かい ── Shell</span></div><span class="kb">景 9</span></div></a>
+    <div class="yo"><span>かい ── Shell</span></div><span class="kb">作品 9</span></div></a>
 <a class="it" href="hyakkei/index.html#kei=suigyu" data-app="いきもの百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|1900〜2000|500〜1500|いま|前500〜500|前500以前" data-cults="中国|南アジア|日本|東南アジア" data-cells="中国×500〜1500|南アジア×前500以前|日本×1500〜1800|東南アジア×1500〜1800|東南アジア×1800〜1900|東南アジア×1900〜2000|東南アジア×500〜1500|東南アジア×いま|東南アジア×前500〜500" style="--ac:#d0a468">
   <div class="th"><img src="assets/thumb/hyakkei/suigyu09.jpg" alt="水牛" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='hyakkei/assets/suigyu09.jpg'"></div>
   <div class="tx"><div class="ap">いきもの百景　第三十景</div>
     <div class="nm serif">水牛</div>
-    <div class="yo"><span>すいぎゅう ── Water buffalo</span></div><span class="kb">景 9</span></div></a>
+    <div class="yo"><span>すいぎゅう ── Water buffalo</span></div><span class="kb">作品 9</span></div></a>
 <a class="it" href="hyakkei/index.html#kei=kujaku" data-app="いきもの百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|500〜1500|いま|前500〜500" data-cults="中国|南アジア|南北アメリカ|東南アジア|西アジア・エジプト" data-cells="中国×500〜1500|南アジア×1800〜1900|南アジア×500〜1500|南北アメリカ×いま|東南アジア×500〜1500|東南アジア×いま|西アジア・エジプト×1500〜1800|西アジア・エジプト×1800〜1900|西アジア・エジプト×前500〜500" style="--ac:#d0a468">
   <div class="th"><img src="assets/thumb/hyakkei/kujaku05.jpg" alt="孔雀" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='hyakkei/assets/kujaku05.jpg'"></div>
   <div class="tx"><div class="ap">いきもの百景　第三十一景</div>
     <div class="nm serif">孔雀</div>
-    <div class="yo"><span>くじゃく ── Peafowl</span></div><span class="kb">景 9</span></div></a>
+    <div class="yo"><span>くじゃく ── Peafowl</span></div><span class="kb">作品 9</span></div></a>
 <a class="it" href="yasai/index.html#kei=daikon" data-app="やさい百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|1900〜2000|いま" data-cults="南北アメリカ|日本" data-cells="南北アメリカ×1900〜2000|日本×1500〜1800|日本×1800〜1900|日本×いま" style="--ac:#b3c48b">
   <div class="th"><img src="assets/thumb/yasai/daikon_a2.jpg" alt="大根" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='yasai/assets/daikon_a2.jpg'"></div>
   <div class="tx"><div class="ap">やさい百景　第一景</div>
     <div class="nm serif">大根</div>
-    <div class="yo"><span>だいこん ── Daikon radish</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>だいこん ── Daikon radish</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="yasai/index.html#kei=nasu" data-app="やさい百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|1900〜2000|いま" data-cults="アフリカ|南北アメリカ|日本" data-cells="アフリカ×いま|南北アメリカ×1900〜2000|日本×1500〜1800|日本×1800〜1900" style="--ac:#b3c48b">
   <div class="th"><img src="assets/thumb/yasai/nasu_a2.jpg" alt="茄子" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='yasai/assets/nasu_a2.jpg'"></div>
   <div class="tx"><div class="ap">やさい百景　第二景</div>
     <div class="nm serif">茄子</div>
-    <div class="yo"><span>なす ── Eggplant</span></div><span class="kb">景 6</span></div></a>
+    <div class="yo"><span>なす ── Eggplant</span></div><span class="kb">作品 6</span></div></a>
 <a class="it" href="yasai/index.html#kei=kabocha" data-app="やさい百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|1900〜2000|いま" data-cults="ヨーロッパ|南北アメリカ|日本" data-cells="ヨーロッパ×1500〜1800|ヨーロッパ×1800〜1900|南北アメリカ×1800〜1900|南北アメリカ×いま|日本×1800〜1900|日本×1900〜2000" style="--ac:#b3c48b">
   <div class="th"><img src="assets/thumb/yasai/kabocha_a3.jpg" alt="南瓜" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='yasai/assets/kabocha_a3.jpg'"></div>
   <div class="tx"><div class="ap">やさい百景　第三景</div>
     <div class="nm serif">南瓜</div>
-    <div class="yo"><span>かぼちゃ ── Pumpkin / Squash</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>かぼちゃ ── Pumpkin / Squash</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="yasai/index.html#kei=kabu" data-app="やさい百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|500〜1500|いま" data-cults="ヨーロッパ|日本" data-cells="ヨーロッパ×1500〜1800|日本×1500〜1800|日本×1800〜1900|日本×500〜1500|日本×いま" style="--ac:#b3c48b">
   <div class="th"><img src="assets/thumb/yasai/kabu_a1.jpg" alt="かぶ" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='yasai/assets/kabu_a1.jpg'"></div>
   <div class="tx"><div class="ap">やさい百景　第四景</div>
     <div class="nm serif">かぶ</div>
-    <div class="yo"><span>かぶ ── Turnip</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>かぶ ── Turnip</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="yasai/index.html#kei=uri" data-app="やさい百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|500〜1500|いま" data-cults="ヨーロッパ|中国|日本|朝鮮半島" data-cells="ヨーロッパ×1800〜1900|中国×1500〜1800|日本×1500〜1800|日本×1800〜1900|日本×500〜1500|日本×いま|朝鮮半島×500〜1500" style="--ac:#b3c48b">
   <div class="th"><img src="assets/thumb/yasai/uri_a3.jpg" alt="瓜" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='yasai/assets/uri_a3.jpg'"></div>
   <div class="tx"><div class="ap">やさい百景　第五景</div>
     <div class="nm serif">瓜</div>
-    <div class="yo"><span>うり ── Melon / gourd</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>うり ── Melon / gourd</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="yasai/index.html#kei=imo" data-app="やさい百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|1900〜2000|いま" data-cults="オセアニア・太平洋|ヨーロッパ|南アジア|日本" data-cells="オセアニア・太平洋×1900〜2000|ヨーロッパ×1800〜1900|南アジア×いま|日本×1500〜1800|日本×1800〜1900" style="--ac:#b3c48b">
   <div class="th"><img src="assets/thumb/yasai/imo_a1.jpg" alt="芋" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='yasai/assets/imo_a1.jpg'"></div>
   <div class="tx"><div class="ap">やさい百景　第六景</div>
     <div class="nm serif">芋</div>
-    <div class="yo"><span>いも ── Taro / yam</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>いも ── Taro / yam</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="yasai/index.html#kei=mame" data-app="やさい百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|500〜1500|いま" data-cults="ヨーロッパ|日本" data-cells="ヨーロッパ×1500〜1800|日本×1500〜1800|日本×1800〜1900|日本×500〜1500|日本×いま" style="--ac:#b3c48b">
   <div class="th"><img src="assets/thumb/yasai/mame_a4.jpg" alt="豆" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='yasai/assets/mame_a4.jpg'"></div>
   <div class="tx"><div class="ap">やさい百景　第七景</div>
     <div class="nm serif">豆</div>
-    <div class="yo"><span>まめ ── Beans / pulses</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>まめ ── Beans / pulses</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="yasai/index.html#kei=hisago" data-app="やさい百景" data-kei="1" data-rg="" data-bands="1500〜1800|500〜1500|いま|前500〜500" data-cults="中国|南北アメリカ|日本" data-cells="中国×1500〜1800|南北アメリカ×前500〜500|日本×1500〜1800|日本×500〜1500|日本×いま" style="--ac:#b3c48b">
   <div class="th"><img src="assets/thumb/yasai/hisago_a3.jpg" alt="瓢" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='yasai/assets/hisago_a3.jpg'"></div>
   <div class="tx"><div class="ap">やさい百景　第八景</div>
     <div class="nm serif">瓢</div>
-    <div class="yo"><span>ひさご ── Gourd / calabash</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>ひさご ── Gourd / calabash</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="yasai/index.html#kei=morokoshi" data-app="やさい百景" data-kei="1" data-rg="" data-bands="1500〜1800|1900〜2000|500〜1500|いま|前500以前" data-cults="そのほか|アフリカ|南北アメリカ|日本" data-cells="そのほか×いま|アフリカ×1900〜2000|南北アメリカ×1500〜1800|南北アメリカ×500〜1500|南北アメリカ×前500以前|日本×1500〜1800" style="--ac:#b3c48b">
   <div class="th"><img src="assets/thumb/yasai/morokoshi_a2.jpg" alt="玉蜀黍" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='yasai/assets/morokoshi_a2.jpg'"></div>
   <div class="tx"><div class="ap">やさい百景　第九景</div>
     <div class="nm serif">玉蜀黍</div>
-    <div class="yo"><span>とうもろこし ── Maize / corn</span></div><span class="kb">景 8</span></div></a>
+    <div class="yo"><span>とうもろこし ── Maize / corn</span></div><span class="kb">作品 8</span></div></a>
 <a class="it" href="yasai/index.html#kei=tougarashi" data-app="やさい百景" data-kei="1" data-rg="" data-bands="1500〜1800|1900〜2000|500〜1500|いま|前500〜500" data-cults="ヨーロッパ|中国|南北アメリカ|日本|朝鮮半島" data-cells="ヨーロッパ×1500〜1800|中国×1500〜1800|南北アメリカ×1500〜1800|南北アメリカ×500〜1500|南北アメリカ×前500〜500|日本×1900〜2000|朝鮮半島×いま" style="--ac:#b3c48b">
   <div class="th"><img src="assets/thumb/yasai/tougarashi_a4.jpg" alt="唐辛子" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='yasai/assets/tougarashi_a4.jpg'"></div>
   <div class="tx"><div class="ap">やさい百景　第十景</div>
     <div class="nm serif">唐辛子</div>
-    <div class="yo"><span>とうがらし ── Chili pepper</span></div><span class="kb">景 8</span></div></a>
+    <div class="yo"><span>とうがらし ── Chili pepper</span></div><span class="kb">作品 8</span></div></a>
 <a class="it" href="yasai/index.html#kei=negi" data-app="やさい百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|いま|前500〜500|前500以前" data-cults="ヨーロッパ|中央アジア・モンゴル|南アジア|日本|西アジア・エジプト" data-cells="ヨーロッパ×1500〜1800|中央アジア・モンゴル×いま|南アジア×1500〜1800|日本×1800〜1900|西アジア・エジプト×前500〜500|西アジア・エジプト×前500以前" style="--ac:#b3c48b">
   <div class="th"><img src="assets/thumb/yasai/negi_a3.jpg" alt="葱" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='yasai/assets/negi_a3.jpg'"></div>
   <div class="tx"><div class="ap">やさい百景　第十一景</div>
     <div class="nm serif">葱</div>
-    <div class="yo"><span>ねぎ ── Welsh onion, onion and leek</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>ねぎ ── Welsh onion, onion and leek</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="yasai/index.html#kei=ninniku" data-app="やさい百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|500〜1500|いま|前500〜500|前500以前" data-cults="ヨーロッパ|中国|朝鮮半島|西アジア・エジプト" data-cells="ヨーロッパ×1800〜1900|中国×1500〜1800|中国×500〜1500|朝鮮半島×いま|西アジア・エジプト×前500〜500|西アジア・エジプト×前500以前" style="--ac:#b3c48b">
   <div class="th"><img src="assets/thumb/yasai/ninniku_a3.jpg" alt="大蒜" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='yasai/assets/ninniku_a3.jpg'"></div>
   <div class="tx"><div class="ap">やさい百景　第十二景</div>
     <div class="nm serif">大蒜</div>
-    <div class="yo"><span>にんにく ── Garlic</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>にんにく ── Garlic</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="yasai/index.html#kei=tomato" data-app="やさい百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|いま" data-cults="ヨーロッパ|南アジア|南北アメリカ" data-cells="ヨーロッパ×1500〜1800|ヨーロッパ×1800〜1900|南アジア×1500〜1800|南アジア×いま|南北アメリカ×1800〜1900" style="--ac:#b3c48b">
   <div class="th"><img src="assets/thumb/yasai/tomato_a2.jpg" alt="トマト" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='yasai/assets/tomato_a2.jpg'"></div>
   <div class="tx"><div class="ap">やさい百景　第十三景</div>
     <div class="nm serif">トマト</div>
-    <div class="yo"><span>とまと ── Tomato</span></div><span class="kb">景 6</span></div></a>
+    <div class="yo"><span>とまと ── Tomato</span></div><span class="kb">作品 6</span></div></a>
 <a class="it" href="yasai/index.html#kei=shouga" data-app="やさい百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|1900〜2000|いま|前500〜500" data-cults="オセアニア・太平洋|ヨーロッパ|中国|南アジア" data-cells="オセアニア・太平洋×1800〜1900|ヨーロッパ×1800〜1900|ヨーロッパ×前500〜500|中国×前500〜500|南アジア×1500〜1800|南アジア×1900〜2000|南アジア×いま" style="--ac:#b3c48b">
   <div class="th"><img src="assets/thumb/yasai/shouga_a4.jpg" alt="生姜" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='yasai/assets/shouga_a4.jpg'"></div>
   <div class="tx"><div class="ap">やさい百景　第十四景</div>
     <div class="nm serif">生姜</div>
-    <div class="yo"><span>しょうが ── Ginger</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>しょうが ── Ginger</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="yasai/index.html#kei=renkon" data-app="やさい百景" data-kei="1" data-rg="" data-bands="1800〜1900|500〜1500|いま|前500〜500" data-cults="中国|南アジア|日本|東南アジア" data-cells="中国×500〜1500|南アジア×前500〜500|日本×1800〜1900|東南アジア×500〜1500|東南アジア×いま" style="--ac:#b3c48b">
   <div class="th"><img src="assets/thumb/yasai/renkon_a4.jpg" alt="蓮根" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='yasai/assets/renkon_a4.jpg'"></div>
   <div class="tx"><div class="ap">やさい百景　第十五景</div>
     <div class="nm serif">蓮根</div>
-    <div class="yo"><span>れんこん ── Lotus root</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>れんこん ── Lotus root</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="yasai/index.html#kei=kansho" data-app="やさい百景" data-kei="1" data-rg="" data-bands="1800〜1900|1900〜2000|500〜1500|いま|前500以前" data-cults="オセアニア・太平洋|南アジア|南北アメリカ|日本|東南アジア" data-cells="オセアニア・太平洋×1900〜2000|南アジア×前500以前|南北アメリカ×1800〜1900|日本×500〜1500|東南アジア×1800〜1900|東南アジア×いま" style="--ac:#b3c48b">
   <div class="th"><img src="assets/thumb/yasai/kansho_a3.jpg" alt="砂糖黍" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='yasai/assets/kansho_a3.jpg'"></div>
   <div class="tx"><div class="ap">やさい百景　第十六景</div>
     <div class="nm serif">砂糖黍</div>
-    <div class="yo"><span>さとうきび ── Sugarcane</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>さとうきび ── Sugarcane</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="tsuki/index.html#kei=mochizuki" data-app="つき百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|500〜1500|いま" data-cults="中国|南アジア|南北アメリカ|日本|朝鮮半島" data-cells="中国×500〜1500|南アジア×1500〜1800|南北アメリカ×いま|日本×1800〜1900|日本×500〜1500|朝鮮半島×1500〜1800" style="--ac:#d9d2b4">
   <div class="th"><img src="assets/thumb/tsuki/mochizuki_a4.jpg" alt="望月" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='tsuki/assets/mochizuki_a4.jpg'"></div>
   <div class="tx"><div class="ap">つき百景　第一景</div>
     <div class="nm serif">望月</div>
-    <div class="yo"><span>もちづき ── Full moon</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>もちづき ── Full moon</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="tsuki/index.html#kei=mikazuki" data-app="つき百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|500〜1500|いま|前500〜500" data-cults="ヨーロッパ|中国|南アジア|南北アメリカ|日本|西アジア・エジプト" data-cells="ヨーロッパ×前500〜500|中国×500〜1500|南アジア×1500〜1800|南北アメリカ×いま|日本×1800〜1900|日本×500〜1500|西アジア・エジプト×1500〜1800" style="--ac:#d9d2b4">
   <div class="th"><img src="assets/thumb/tsuki/mikazuki_a4.jpg" alt="三日月" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='tsuki/assets/mikazuki_a4.jpg'"></div>
   <div class="tx"><div class="ap">つき百景　第二景</div>
     <div class="nm serif">三日月</div>
-    <div class="yo"><span>みかづき ── Mikazuki · crescent moon</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>みかづき ── Mikazuki · crescent moon</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="tsuki/index.html#kei=izayoi" data-app="つき百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|500〜1500|いま" data-cults="ヨーロッパ|中国|日本" data-cells="ヨーロッパ×1800〜1900|ヨーロッパ×いま|中国×1500〜1800|中国×500〜1500|日本×1500〜1800|日本×500〜1500" style="--ac:#d9d2b4">
   <div class="th"><img src="assets/thumb/tsuki/izayoi_a1.jpg" alt="十六夜" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='tsuki/assets/izayoi_a1.jpg'"></div>
   <div class="tx"><div class="ap">つき百景　第三景</div>
     <div class="nm serif">十六夜</div>
-    <div class="yo"><span>いざよい ── Izayoi · moon of the 16th night</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>いざよい ── Izayoi · moon of the 16th night</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="tsuki/index.html#kei=ariake" data-app="つき百景" data-kei="1" data-rg="" data-bands="1800〜1900|1900〜2000|500〜1500|いま|前500〜500" data-cults="アフリカ|ヨーロッパ|中国|日本|西アジア・エジプト" data-cells="アフリカ×1900〜2000|ヨーロッパ×1800〜1900|ヨーロッパ×いま|中国×500〜1500|日本×1800〜1900|日本×500〜1500|西アジア・エジプト×前500〜500" style="--ac:#d9d2b4">
   <div class="th"><img src="assets/thumb/tsuki/ariake_p1.jpg" alt="有明の月" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='tsuki/assets/ariake_p1.jpg'"></div>
   <div class="tx"><div class="ap">つき百景　第四景</div>
     <div class="nm serif">有明の月</div>
-    <div class="yo"><span>ありあけのつき ── Ariake · moon still up at dawn</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>ありあけのつき ── Ariake · moon still up at dawn</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="tsuki/index.html#kei=meigetsu" data-app="つき百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|500〜1500" data-cults="中国|南北アメリカ|日本|朝鮮半島" data-cells="中国×500〜1500|南北アメリカ×1800〜1900|日本×1500〜1800|日本×1800〜1900|朝鮮半島×1500〜1800|朝鮮半島×500〜1500" style="--ac:#d9d2b4">
   <div class="th"><img src="assets/thumb/tsuki/meigetsu_a3.jpg" alt="名月" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='tsuki/assets/meigetsu_a3.jpg'"></div>
   <div class="tx"><div class="ap">つき百景　第五景</div>
     <div class="nm serif">名月</div>
-    <div class="yo"><span>めいげつ ── Meigetsu · mid-autumn full moon</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>めいげつ ── Meigetsu · mid-autumn full moon</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="tsuki/index.html#kei=oborozuki" data-app="つき百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|500〜1500|いま" data-cults="中国|南アジア|南北アメリカ|日本|朝鮮半島" data-cells="中国×500〜1500|南アジア×いま|南北アメリカ×1800〜1900|日本×1800〜1900|日本×500〜1500|朝鮮半島×1500〜1800" style="--ac:#d9d2b4">
   <div class="th"><img src="assets/thumb/tsuki/oborozuki_a2.jpg" alt="朧月" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='tsuki/assets/oborozuki_a2.jpg'"></div>
   <div class="tx"><div class="ap">つき百景　第六景</div>
     <div class="nm serif">朧月</div>
-    <div class="yo"><span>おぼろづき ── Oborozuki · hazy spring moon</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>おぼろづき ── Oborozuki · hazy spring moon</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="tsuki/index.html#kei=gesshoku" data-app="つき百景" data-kei="1" data-rg="" data-bands="500〜1500|いま|前500〜500" data-cults="ヨーロッパ|中国|南アジア|日本|西アジア・エジプト" data-cells="ヨーロッパ×前500〜500|中国×前500〜500|南アジア×500〜1500|日本×500〜1500|日本×いま|西アジア・エジプト×500〜1500" style="--ac:#d9d2b4">
   <div class="th"><img src="assets/thumb/tsuki/gesshoku_p1.jpg" alt="月食" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='tsuki/assets/gesshoku_p1.jpg'"></div>
   <div class="tx"><div class="ap">つき百景　第七景</div>
     <div class="nm serif">月食</div>
-    <div class="yo"><span>げっしょく ── Lunar eclipse</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>げっしょく ── Lunar eclipse</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="tsuki/index.html#kei=moyo" data-app="つき百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|500〜1500|いま|前500〜500" data-cults="ヨーロッパ|中国|南アジア|南北アメリカ|日本" data-cells="ヨーロッパ×500〜1500|中国×500〜1500|南アジア×前500〜500|南北アメリカ×1500〜1800|南北アメリカ×1800〜1900|南北アメリカ×いま|日本×1800〜1900" style="--ac:#d9d2b4">
   <div class="th"><img src="assets/thumb/tsuki/moyo_a2.jpg" alt="月の模様" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='tsuki/assets/moyo_a2.jpg'"></div>
   <div class="tx"><div class="ap">つき百景　第八景</div>
     <div class="nm serif">月の模様</div>
-    <div class="yo"><span>つきのもよう ── Markings of the Moon</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>つきのもよう ── Markings of the Moon</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="tsuki/index.html#kei=yumihari" data-app="つき百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|500〜1500|いま" data-cults="ヨーロッパ|中国|日本|朝鮮半島" data-cells="ヨーロッパ×1800〜1900|中国×1500〜1800|中国×1800〜1900|中国×500〜1500|中国×いま|日本×500〜1500|朝鮮半島×1500〜1800" style="--ac:#d9d2b4">
   <div class="th"><img src="assets/thumb/tsuki/yumihari_a2.jpg" alt="弓張月" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='tsuki/assets/yumihari_a2.jpg'"></div>
   <div class="tx"><div class="ap">つき百景　第九景</div>
     <div class="nm serif">弓張月</div>
-    <div class="yo"><span>ゆみはりづき ── Yumiharizuki · half moon</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>ゆみはりづき ── Yumiharizuki · half moon</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="tsuki/index.html#kei=kangetsu" data-app="つき百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|1900〜2000|500〜1500|いま" data-cults="ヨーロッパ|中国|北極圏|日本" data-cells="ヨーロッパ×1800〜1900|ヨーロッパ×1900〜2000|中国×1800〜1900|中国×500〜1500|北極圏×いま|日本×1500〜1800" style="--ac:#d9d2b4">
   <div class="th"><img src="assets/thumb/tsuki/kangetsu_a2.jpg" alt="寒月" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='tsuki/assets/kangetsu_a2.jpg'"></div>
   <div class="tx"><div class="ap">つき百景　第十景</div>
     <div class="nm serif">寒月</div>
-    <div class="yo"><span>かんげつ ── Kangetsu · winter moon</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>かんげつ ── Kangetsu · winter moon</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="taiyo/index.html#kei=hinode" data-app="たいよう百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|いま|前500〜500|前500以前" data-cults="ヨーロッパ|中国|南アジア|日本|朝鮮半島" data-cells="ヨーロッパ×1500〜1800|中国×前500〜500|南アジア×1800〜1900|南アジア×前500以前|日本×1800〜1900|朝鮮半島×いま" style="--ac:#e0a353">
   <div class="th"><img src="assets/thumb/taiyo/hinode_a4.jpg" alt="日の出" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='taiyo/assets/hinode_a4.jpg'"></div>
   <div class="tx"><div class="ap">たいよう百景　第一景</div>
     <div class="nm serif">日の出</div>
-    <div class="yo"><span>ひので ── Sunrise</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>ひので ── Sunrise</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="taiyo/index.html#kei=yuhi" data-app="たいよう百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|500〜1500|前500以前" data-cults="ヨーロッパ|中国|南北アメリカ|日本|西アジア・エジプト" data-cells="ヨーロッパ×1800〜1900|中国×1500〜1800|中国×500〜1500|南北アメリカ×1800〜1900|日本×1800〜1900|日本×500〜1500|西アジア・エジプト×前500以前" style="--ac:#e0a353">
   <div class="th"><img src="assets/thumb/taiyo/yuhi_a4.jpg" alt="夕日" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='taiyo/assets/yuhi_a4.jpg'"></div>
   <div class="tx"><div class="ap">たいよう百景　第二景</div>
     <div class="nm serif">夕日</div>
-    <div class="yo"><span>ゆうひ ── Sunset</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>ゆうひ ── Sunset</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="taiyo/index.html#kei=nichirin" data-app="たいよう百景" data-kei="1" data-rg="" data-bands="1500〜1800|1900〜2000|500〜1500|前500〜500|前500以前" data-cults="中国|南北アメリカ|日本|朝鮮半島|西アジア・エジプト" data-cells="中国×前500〜500|南北アメリカ×500〜1500|日本×1500〜1800|朝鮮半島×1900〜2000|西アジア・エジプト×500〜1500|西アジア・エジプト×前500以前" style="--ac:#e0a353">
   <div class="th"><img src="assets/thumb/taiyo/nichirin_a2.jpg" alt="日輪" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='taiyo/assets/nichirin_a2.jpg'"></div>
   <div class="tx"><div class="ap">たいよう百景　第三景</div>
     <div class="nm serif">日輪</div>
-    <div class="yo"><span>にちりん ── Nichirin · the sun as a disc</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>にちりん ── Nichirin · the sun as a disc</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="taiyo/index.html#kei=nisshoku" data-app="たいよう百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|500〜1500|いま|前500以前" data-cults="ヨーロッパ|中国|南アジア|南北アメリカ|日本" data-cells="ヨーロッパ×1500〜1800|ヨーロッパ×1800〜1900|中国×前500以前|南アジア×500〜1500|南北アメリカ×いま|日本×1800〜1900|日本×500〜1500" style="--ac:#e0a353">
   <div class="th"><img src="assets/thumb/taiyo/nisshoku_a2.jpg" alt="日食" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='taiyo/assets/nisshoku_a2.jpg'"></div>
   <div class="tx"><div class="ap">たいよう百景　第四景</div>
     <div class="nm serif">日食</div>
-    <div class="yo"><span>にっしょく ── Solar eclipse</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>にっしょく ── Solar eclipse</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="taiyo/index.html#kei=kagerou" data-app="たいよう百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|いま|前500〜500" data-cults="ヨーロッパ|中国|南アジア|南北アメリカ|日本|東南アジア" data-cells="ヨーロッパ×1500〜1800|ヨーロッパ×1800〜1900|中国×前500〜500|南アジア×前500〜500|南北アメリカ×1800〜1900|日本×1500〜1800|東南アジア×いま" style="--ac:#e0a353">
   <div class="th"><img src="assets/thumb/taiyo/kagerou_p1.jpg" alt="陽炎" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='taiyo/assets/kagerou_p1.jpg'"></div>
   <div class="tx"><div class="ap">たいよう百景　第五景</div>
     <div class="nm serif">陽炎</div>
-    <div class="yo"><span>かげろう ── Kagerō · heat shimmer</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>かげろう ── Kagerō · heat shimmer</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="taiyo/index.html#kei=komorebi" data-app="たいよう百景" data-kei="1" data-rg="" data-bands="1800〜1900|いま|前500〜500" data-cults="ヨーロッパ|南アジア|南北アメリカ|日本|西アジア・エジプト" data-cells="ヨーロッパ×1800〜1900|ヨーロッパ×前500〜500|南アジア×1800〜1900|南北アメリカ×1800〜1900|日本×1800〜1900|西アジア・エジプト×いま" style="--ac:#e0a353">
   <div class="th"><img src="assets/thumb/taiyo/komorebi_a4.jpg" alt="木漏れ日" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='taiyo/assets/komorebi_a4.jpg'"></div>
   <div class="tx"><div class="ap">たいよう百景　第六景</div>
     <div class="nm serif">木漏れ日</div>
-    <div class="yo"><span>こもれび ── Komorebi · sunlight through leaves</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>こもれび ── Komorebi · sunlight through leaves</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="taiyo/index.html#kei=byakuya" data-app="たいよう百景" data-kei="1" data-rg="" data-bands="1800〜1900|1900〜2000|500〜1500|いま" data-cults="ヨーロッパ|中国|北極圏" data-cells="ヨーロッパ×1800〜1900|ヨーロッパ×1900〜2000|中国×500〜1500|北極圏×いま" style="--ac:#e0a353">
   <div class="th"><img src="assets/thumb/taiyo/byakuya_p1.jpg" alt="白夜" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='taiyo/assets/byakuya_p1.jpg'"></div>
   <div class="tx"><div class="ap">たいよう百景　第七景</div>
     <div class="nm serif">白夜</div>
-    <div class="yo"><span>びゃくや ── Byakuya · white night</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>びゃくや ── Byakuya · white night</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="taiyo/index.html#kei=hideri" data-app="たいよう百景" data-kei="1" data-rg="" data-bands="1500〜1800|1900〜2000|いま|前500以前" data-cults="アフリカ|中国|南アジア|南北アメリカ|日本" data-cells="アフリカ×いま|中国×前500以前|南アジア×1500〜1800|南北アメリカ×1900〜2000|日本×1500〜1800|日本×1900〜2000" style="--ac:#e0a353">
   <div class="th"><img src="assets/thumb/taiyo/hideri_a2.jpg" alt="日照り" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='taiyo/assets/hideri_a2.jpg'"></div>
   <div class="tx"><div class="ap">たいよう百景　第八景</div>
     <div class="nm serif">日照り</div>
-    <div class="yo"><span>ひでり ── Hideri · drought</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>ひでり ── Hideri · drought</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="taiyo/index.html#kei=aurora" data-app="たいよう百景" data-kei="1" data-rg="" data-bands="1500〜1800|1800〜1900|500〜1500|いま|前500〜500" data-cults="ヨーロッパ|北極圏|日本" data-cells="ヨーロッパ×1800〜1900|ヨーロッパ×前500〜500|北極圏×1800〜1900|北極圏×いま|日本×1500〜1800|日本×500〜1500" style="--ac:#e0a353">
   <div class="th"><img src="assets/thumb/taiyo/aurora_a4.jpg" alt="オーロラ" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='taiyo/assets/aurora_a4.jpg'"></div>
   <div class="tx"><div class="ap">たいよう百景　第九景</div>
     <div class="nm serif">オーロラ</div>
-    <div class="yo"><span>きょくこう／オーロラ ── Aurora</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>きょくこう／オーロラ ── Aurora</span></div><span class="kb">作品 7</span></div></a>
 <a class="it" href="taiyo/index.html#kei=hakumei" data-app="たいよう百景" data-kei="1" data-rg="" data-bands="1800〜1900|1900〜2000|500〜1500|いま|前500以前" data-cults="中国|南北アメリカ|日本|西アジア・エジプト" data-cells="中国×前500以前|南北アメリカ×いま|日本×1800〜1900|日本×500〜1500|西アジア・エジプト×1900〜2000|西アジア・エジプト×いま|西アジア・エジプト×前500以前" style="--ac:#e0a353">
   <div class="th"><img src="assets/thumb/taiyo/hakumei_a2.jpg" alt="薄明" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='taiyo/assets/hakumei_a2.jpg'"></div>
   <div class="tx"><div class="ap">たいよう百景　第十景</div>
     <div class="nm serif">薄明</div>
-    <div class="yo"><span>はくめい ── Hakumei · twilight</span></div><span class="kb">景 7</span></div></a>
+    <div class="yo"><span>はくめい ── Hakumei · twilight</span></div><span class="kb">作品 7</span></div></a>
   </div>
 
   <footer>
@@ -1187,8 +1219,31 @@ function pad3(n){const s=String(n).padStart(3,'0');const z=s.match(/^0*/)[0];
 document.getElementById('cnt').innerHTML=
   '<span class="pair"><span class="n">'+pad3(N)+'</span><span class="u">景</span></span><span class="sep">·</span>'+
   '<span class="pair"><span class="u">うち絵と文学のある景</span><span class="n">'+pad3(G)+'</span></span><span class="sep">·</span>'+
-  '<span class="pair"><span class="n">'+pad3(W)+'</span><span class="u">作品</span></span><span class="sep">·</span>'+
-  '<span class="pair"><span class="n">'+pad3(O)+'</span><span class="u">音</span></span>';
+  '<span class="pair"><span class="u">作品</span><span class="n">'+pad3(W)+'</span><span class="u">点</span></span><span class="sep">·</span>'+
+  '<span class="pair"><span class="u">音</span><span class="n">'+pad3(O)+'</span><span class="u">本</span></span>';
+
+/* ── きょうの一景：日付で一つ選ぶ（同じ日は同じ景）。絵のある景から ── */
+(function(){
+  const pool=[...document.querySelectorAll('a.it[data-kei="1"]')].filter(a=>a.querySelector('.th img'));
+  if(!pool.length) return;
+  const d=new Date(); let k=d.getFullYear()*10000+(d.getMonth()+1)*100+d.getDate();
+  k=(k*2654435761)>>>0; let i=k%pool.length;
+  const sec=document.getElementById('today'), A=document.getElementById('todayA');
+  function show(a){
+    A.href=a.getAttribute('href');
+    const img=a.querySelector('.th img'), th=document.getElementById('todayTh');
+    th.innerHTML=''; const im=document.createElement('img'); im.src=img.getAttribute('src'); im.alt=img.alt||''; im.decoding='async';
+    th.appendChild(im);
+    document.getElementById('todayAp').textContent=(a.querySelector('.ap')||{}).textContent||'';
+    document.getElementById('todayNm').textContent=(a.querySelector('.nm')||{}).textContent||'';
+    const yo=a.querySelector('.yo span'), kb=a.querySelector('.kb');
+    document.getElementById('todayYo').textContent=(yo?yo.textContent:'')+(kb?'　'+kb.textContent:'');
+  }
+  show(pool[i]); sec.hidden=false;
+  document.getElementById('todayNext').addEventListener('click',()=>{
+    let j=i; if(pool.length>1) while(j===i) j=Math.floor(Math.random()*pool.length); i=j; show(pool[i]);
+  });
+})();
 
 /* ── 絞り込み ── */
 let cur=null, curBand=null, curCult=null, curCell=null;
@@ -1270,7 +1325,7 @@ document.querySelectorAll('.fchip').forEach(b=>b.addEventListener('click',()=>{
 </script>
 <!-- aoi:begin -->
 <style>
-  /* ── 案内役・碧（AI）── _dev/aoi.py ── */
+  /* ── 案内役・碧 ── _dev/aoi.py ── */
   .aoi-card{display:flex;gap:16px;align-items:flex-start;margin:26px 0 0;max-width:760px;
     border:1px solid rgba(143,208,194,.28);border-radius:10px;padding:14px 16px;background:rgba(143,208,194,.045)}
   .aoi-card .aoi-pic{flex:0 0 112px;width:112px;height:137px;border-radius:8px;overflow:hidden;background:#1b2321}
@@ -1285,7 +1340,7 @@ document.querySelectorAll('.fchip').forEach(b=>b.addEventListener('click',()=>{
   .aoi-chip{font:inherit;font-size:11.5px;letter-spacing:.08em;padding:5px 12px;border-radius:999px;cursor:pointer;
     border:1px solid rgba(143,208,194,.4);background:transparent;color:#cfe9e2;text-decoration:none;line-height:1.5}
   .aoi-chip:hover{border-color:#8fd0c2;color:#fff}
-  .aoi-chip{min-height:36px;display:inline-flex;align-items:center;font-size:12.5px}
+  .aoi-chip{min-height:44px;display:inline-flex;align-items:center;font-size:12.5px}
   .aoi-pick{display:block;width:100%;max-width:220px;height:120px;object-fit:cover;border-radius:6px;
     border:1px solid rgba(255,255,255,.12);margin:2px 0 8px;background:#0a0908}
   .aoi-chip.main{background:#8fd0c2;color:#10201c;border-color:#8fd0c2}
@@ -1336,7 +1391,7 @@ document.querySelectorAll('.fchip').forEach(b=>b.addEventListener('click',()=>{
   @media (prefers-reduced-motion: reduce){.aoi-flash{animation:none}}
 </style>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/","@pixiv/three-vrm":"https://cdn.jsdelivr.net/npm/@pixiv/three-vrm@3.5.5/lib/three-vrm.module.min.js"}}</script>
-<script>window.AOI_CONF={"top":true,"base":"assets/aoi/","lines":{"about":["わたしは碧（あおい）。mitsulab がつくった AI の案内役です。","話すのは、選び方の案内と、このページに書いてある文の抜き出しだけです。新しい事実は足しません。生きものの気持ちを、代わりに言うこともしません。","確かなところは、作品ごとの注と出典で確かめてください。"],"note":"碧（AI）は、このページの文から案内しています。","kei_tail":"根拠は、作品ごとの注と出典にあります。いちばん下の「きょうのさそい」には、自分でためせることが一つ書いてあります。","omakase_note":"選んだのは、ただの偶然です。","none":"いま選べる景が見つかりませんでした。絞りこみを外してみてください。","no3dfile":["3D の碧は、公開版などウェブのページとしてひらいたときだけ呼べます。","ファイルを直接ひらいているときは、姿は出せません。"],"vrmlic":"姿：© mitsulab（VRoid Studio で作成した VRM）。この作品の中で碧を表示するためだけに置いています。利用条件は「アバターとして使えるのは作者のみ・再配布不可・改変不可」です。ファイルを取り出して、ほかで使ったり配ったりしないでください。表示：@pixiv/three-vrm・three.js（どちらも MIT）。","hello":["どの景から見ますか。","時代で選ぶなら「時代の帯」、土地で選ぶなら「どこから来た作品か」の帯、主題で選ぶなら八つの連作のカードから。"],"jidai":["時代の帯を押すと、その帯に作品を持つ景だけが残ります。もう一度押すと、もとに戻ります。"],"tochi":["「どこから来た作品か」は、作り手のいた土地で数えています。時代の帯と重ねて絞りこめます。","地域 × 時代の表の空いた枡は、この連作がまだ見ていないところです。"],"shudai":["八つの連作 ── つち百景・あめ百景・かぜ百景・ゆき百景・いきもの百景・やさい百景・つき百景・たいよう百景。","一つの主題につき、一つの景。カードを押すと、その連作がひらきます。"]}};</script>
+<script>window.AOI_CONF={"top":true,"base":"assets/aoi/","lines":{"about":["わたしは碧（あおい）。人と自然のあいだに立つ依代です。","話すのは、選び方の案内と、このページに書いてある文の抜き出しだけです。新しい事実は足しません。生きものの気持ちを、代わりに言うこともしません。","確かなところは、作品ごとの注と出典で確かめてください。"],"note":"碧は、このページの文から案内しています。","kei_tail":"根拠は、作品ごとの注と出典にあります。いちばん下の「きょうのさそい」には、自分でためせることが一つ書いてあります。","omakase_note":"選んだのは、ただの偶然です。","none":"いま選べる景が見つかりませんでした。絞りこみを外してみてください。","no3dfile":["3D の碧は、公開版などウェブのページとしてひらいたときだけ呼べます。","ファイルを直接ひらいているときは、姿は出せません。"],"vrmlic":"姿：© mitsulab（VRoid Studio で作成した VRM）。この作品の中で碧を表示するためだけに置いています。利用条件は「使えるのは作者のみ・再配布不可・改変不可」です。ファイルを取り出して、ほかで使ったり配ったりしないでください。表示：@pixiv/three-vrm・three.js（どちらも MIT）。","hello":["どの景から見ますか。","時代で選ぶなら「時代の帯」、土地で選ぶなら「どこから来た作品か」の帯、主題で選ぶなら八つの連作のカードから。"],"jidai":["時代の帯を押すと、その帯に作品を持つ景だけが残ります。もう一度押すと、もとに戻ります。"],"tochi":["「どこから来た作品か」は、作り手のいた土地で数えています。時代の帯と重ねて絞りこめます。","地域 × 時代の表の空いた枡は、この連作がまだ見ていないところです。"],"shudai":["八つの連作 ── つち百景・あめ百景・かぜ百景・ゆき百景・いきもの百景・やさい百景・つき百景・たいよう百景。","一つの主題につき、一つの景。カードを押すと、その連作がひらきます。"]}};</script>
 <script>addEventListener("load",function(){var s=document.createElement("script");s.src="assets/aoi/aoi.js";document.body.appendChild(s);});</script>
 <!-- aoi:end -->
 </body>

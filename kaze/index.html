@@ -90,6 +90,7 @@
   h2 b{color:var(--ink);font-weight:600}
   .mapwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin-top:10px}
   .mapwrap::-webkit-scrollbar{display:none}
+  .maphint{margin:8px 0 0;font-size:12px;color:var(--dim);letter-spacing:.04em}
   svg.map{display:block;min-width:820px;width:100%}
   svg.mx{display:block;width:100%;max-width:760px;margin-top:10px}
   .land{fill:rgba(255,255,255,.055);stroke:rgba(255,255,255,.1);stroke-width:.6}
@@ -286,6 +287,17 @@ OTHER.forEach(i=>{
    const sp=document.createElement('span');
    sp.innerHTML='<i style="background:'+REGC[r]+'"></i>'+r;lg.appendChild(sp);});
  const mw=document.querySelector('.mapwrap');if(mw)mw.appendChild(lg);})();
+/* 狭い画面で地図が横に送れることを知らせる（2026-10-07 パネル11人 P2：390px で端の名札が切れて見えた） */
+function mapHint(){
+  const mw=document.querySelector('.mapwrap'); if(!mw) return;
+  let h=document.getElementById('maphint');
+  const over=mw.scrollWidth-mw.clientWidth>2;
+  if(!over){ if(h) h.hidden=true; return; }
+  if(!h){ h=document.createElement('p'); h.id='maphint'; h.className='maphint';
+    h.textContent='← 地図は指で左右に送れます（端の名札も見られます） →'; mw.parentNode.insertBefore(h,mw); }
+  h.hidden=false;
+}
+addEventListener('load',mapHint); addEventListener('resize',mapHint);
 /* 狭い画面では地図が横にはみ出す。ことばの点の重心が真ん中に来るよう、最初だけ寄せておく
    （左端＝太平洋から始まると、いちばん語の少ないところが最初に見えてしまう） */
 function centerMap(){
@@ -718,7 +730,7 @@ function pad3(n){var s=String(n).padStart(3,'0');var z=s.match(/^0*/)[0];
 function drawCount(a,b){counter.innerHTML=
   '<span class="cnum">'+pad3(a)+'</span><span class="cunit">/100 景</span>'+
   '<span class="csep">·</span>'+
-  '<span class="cnum">'+pad3(b)+'</span><span class="cunit">作品</span>';}
+  '<span class="cunit">作品</span><span class="cnum">'+pad3(b)+'</span><span class="cunit">点</span>';}
 if(matchMedia('(prefers-reduced-motion: reduce)').matches){drawCount(NKEI,NW);}
 else{var t0=performance.now(),DUR=900;
   (function tick(t){var p=Math.min(1,(t-t0)/DUR),e=1-Math.pow(1-p,3);
@@ -801,7 +813,7 @@ setTimeout(function(){gotoHash();},60);
 </script>
 <!-- aoi:begin -->
 <style>
-  /* ── 案内役・碧（AI）── _dev/aoi.py ── */
+  /* ── 案内役・碧 ── _dev/aoi.py ── */
   .aoi-card{display:flex;gap:16px;align-items:flex-start;margin:26px 0 0;max-width:760px;
     border:1px solid rgba(143,208,194,.28);border-radius:10px;padding:14px 16px;background:rgba(143,208,194,.045)}
   .aoi-card .aoi-pic{flex:0 0 112px;width:112px;height:137px;border-radius:8px;overflow:hidden;background:#1b2321}
@@ -816,7 +828,7 @@ setTimeout(function(){gotoHash();},60);
   .aoi-chip{font:inherit;font-size:11.5px;letter-spacing:.08em;padding:5px 12px;border-radius:999px;cursor:pointer;
     border:1px solid rgba(143,208,194,.4);background:transparent;color:#cfe9e2;text-decoration:none;line-height:1.5}
   .aoi-chip:hover{border-color:#8fd0c2;color:#fff}
-  .aoi-chip{min-height:36px;display:inline-flex;align-items:center;font-size:12.5px}
+  .aoi-chip{min-height:44px;display:inline-flex;align-items:center;font-size:12.5px}
   .aoi-pick{display:block;width:100%;max-width:220px;height:120px;object-fit:cover;border-radius:6px;
     border:1px solid rgba(255,255,255,.12);margin:2px 0 8px;background:#0a0908}
   .aoi-chip.main{background:#8fd0c2;color:#10201c;border-color:#8fd0c2}
@@ -867,7 +879,7 @@ setTimeout(function(){gotoHash();},60);
   @media (prefers-reduced-motion: reduce){.aoi-flash{animation:none}}
 </style>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/","@pixiv/three-vrm":"https://cdn.jsdelivr.net/npm/@pixiv/three-vrm@3.5.5/lib/three-vrm.module.min.js"}}</script>
-<script>window.AOI_CONF={"top":false,"slug":"kaze","kind":"kotoba","base":"../assets/aoi/","lines":{"about":["わたしは碧（あおい）。mitsulab がつくった AI の案内役です。","話すのは、選び方の案内と、このページに書いてある文の抜き出しだけです。新しい事実は足しません。生きものの気持ちを、代わりに言うこともしません。","確かなところは、作品ごとの注と出典で確かめてください。"],"note":"碧（AI）は、このページの文から案内しています。","kei_tail":"根拠は、作品ごとの注と出典にあります。いちばん下の「きょうのさそい」には、自分でためせることが一つ書いてあります。","omakase_note":"選んだのは、ただの偶然です。","none":"いま選べる景が見つかりませんでした。絞りこみを外してみてください。","no3dfile":["3D の碧は、公開版などウェブのページとしてひらいたときだけ呼べます。","ファイルを直接ひらいているときは、姿は出せません。"],"vrmlic":"姿：© mitsulab（VRoid Studio で作成した VRM）。この作品の中で碧を表示するためだけに置いています。利用条件は「アバターとして使えるのは作者のみ・再配布不可・改変不可」です。ファイルを取り出して、ほかで使ったり配ったりしないでください。表示：@pixiv/three-vrm・three.js（どちらも MIT）。","hello":["かぜ百景。世界の風の名前、一つが一つの景です。","名前を押すと、その風が吹きます。","下の「景」の札からは、そのことばが呼んできた絵と、文学と、いまの写真に着きます。"],"keisec":["ことばが呼んできた絵と、文学と、いまの写真。札を押すと、その景がひらきます。"]}};</script>
+<script>window.AOI_CONF={"top":false,"slug":"kaze","kind":"kotoba","base":"../assets/aoi/","lines":{"about":["わたしは碧（あおい）。人と自然のあいだに立つ依代です。","話すのは、選び方の案内と、このページに書いてある文の抜き出しだけです。新しい事実は足しません。生きものの気持ちを、代わりに言うこともしません。","確かなところは、作品ごとの注と出典で確かめてください。"],"note":"碧は、このページの文から案内しています。","kei_tail":"根拠は、作品ごとの注と出典にあります。いちばん下の「きょうのさそい」には、自分でためせることが一つ書いてあります。","omakase_note":"選んだのは、ただの偶然です。","none":"いま選べる景が見つかりませんでした。絞りこみを外してみてください。","no3dfile":["3D の碧は、公開版などウェブのページとしてひらいたときだけ呼べます。","ファイルを直接ひらいているときは、姿は出せません。"],"vrmlic":"姿：© mitsulab（VRoid Studio で作成した VRM）。この作品の中で碧を表示するためだけに置いています。利用条件は「使えるのは作者のみ・再配布不可・改変不可」です。ファイルを取り出して、ほかで使ったり配ったりしないでください。表示：@pixiv/three-vrm・three.js（どちらも MIT）。","hello":["かぜ百景。世界の風の名前、一つが一つの景です。","名前を押すと、その風が吹きます。","下の「景」の札からは、そのことばが呼んできた絵と、文学と、いまの写真に着きます。"],"keisec":["ことばが呼んできた絵と、文学と、いまの写真。札を押すと、その景がひらきます。"]}};</script>
 <script>addEventListener("load",function(){var s=document.createElement("script");s.src="../assets/aoi/aoi.js";document.body.appendChild(s);});</script>
 <!-- aoi:end -->
 <!-- ux:begin -->

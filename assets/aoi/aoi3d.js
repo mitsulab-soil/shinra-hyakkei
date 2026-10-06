@@ -1,4 +1,4 @@
-/* 森羅百景の碧（AI）の 3D の姿 ── 2026-10-03。元＝_dev/aoi_src/aoi3d.js（_dev/aoi.py が assets/aoi/ へ写す）。
+/* 森羅百景の碧（依代）の 3D の姿 ── 2026-10-03。元＝_dev/aoi_src/aoi3d.js（_dev/aoi.py が assets/aoi/ へ写す）。
    「3D の碧を呼ぶ」を押したときだけ、aoi.js が import() で読む（はじめの表示では何も取りに行かない）。
    three@0.170.0 と @pixiv/three-vrm@3.5.5 は jsDelivr の版固定（ページの importmap）。《Feel Hikawa》と同じ組み合わせ。
    姿＝assets/aoi/aoi.vrm（碧の現行デザインの Web 配信用の派生・約 2 MB。形は EXT_meshopt_compression、絵は WebP）。

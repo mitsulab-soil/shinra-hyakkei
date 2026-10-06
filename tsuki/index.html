@@ -147,7 +147,7 @@
     <h1 class="serif">つき百景</h1>
     <p class="intro">同じ月を、人は望月・三日月・十六夜・有明と、見え方ごとに呼び分けてきた。月は一つしかないのに、名前は幾つもある——名前の数だけ、人が月を見上げた時刻と気分がある。</p>
     <p class="intro">作品という窓を通すと、同じ月にも百人百様の見え方がある。だから、つき百景。月の見え方一つが一つの景、百の景まで集めつづける。</p>
-    <!-- ux:en:begin --><p class="intro en" lang="en">Tsuki Hyakkei — views of the Moon. Each view is one way the Moon appears (crescent, full, eclipse, its markings…), seen through paintings and writings, with a note on the astronomy. The pages are in Japanese; your browser's translation works on them. Aoi, the guide, is an AI that only points the way and quotes this page.</p><!-- ux:en:end -->
+    <!-- ux:en:begin --><p class="intro en" lang="en">Tsuki Hyakkei — views of the Moon. Each view is one way the Moon appears (crescent, full, eclipse, its markings…), seen through paintings and writings, with a note on the astronomy. The pages are in Japanese; your browser's translation works on them. Aoi, the guide, is a yorishiro — a vessel between people and nature — who only points the way and quotes this page.</p><!-- ux:en:end -->
 <div class="count" id="counter" aria-label=""></div>
   </header>
 
@@ -196,7 +196,7 @@ function pad3(n){const s=String(n).padStart(3,'0');
 function drawCount(a,b){counter.innerHTML=
   `<span class="cnum">${pad3(a)}</span><span class="cunit">/100 景</span>`+
   `<span class="csep">·</span>`+
-  `<span class="cnum">${pad3(b)}</span><span class="cunit">作品</span>`;}
+  `<span class="cunit">作品</span><span class="cnum">${pad3(b)}</span><span class="cunit">点</span>`;}
 if(matchMedia('(prefers-reduced-motion: reduce)').matches){ drawCount(NKEI,NW); }
 else{
   const t0=performance.now(),DUR=900;
@@ -343,7 +343,7 @@ const OTO={};
 </script>
 <!-- aoi:begin -->
 <style>
-  /* ── 案内役・碧（AI）── _dev/aoi.py ── */
+  /* ── 案内役・碧 ── _dev/aoi.py ── */
   .aoi-card{display:flex;gap:16px;align-items:flex-start;margin:26px 0 0;max-width:760px;
     border:1px solid rgba(143,208,194,.28);border-radius:10px;padding:14px 16px;background:rgba(143,208,194,.045)}
   .aoi-card .aoi-pic{flex:0 0 112px;width:112px;height:137px;border-radius:8px;overflow:hidden;background:#1b2321}
@@ -358,7 +358,7 @@ const OTO={};
   .aoi-chip{font:inherit;font-size:11.5px;letter-spacing:.08em;padding:5px 12px;border-radius:999px;cursor:pointer;
     border:1px solid rgba(143,208,194,.4);background:transparent;color:#cfe9e2;text-decoration:none;line-height:1.5}
   .aoi-chip:hover{border-color:#8fd0c2;color:#fff}
-  .aoi-chip{min-height:36px;display:inline-flex;align-items:center;font-size:12.5px}
+  .aoi-chip{min-height:44px;display:inline-flex;align-items:center;font-size:12.5px}
   .aoi-pick{display:block;width:100%;max-width:220px;height:120px;object-fit:cover;border-radius:6px;
     border:1px solid rgba(255,255,255,.12);margin:2px 0 8px;background:#0a0908}
   .aoi-chip.main{background:#8fd0c2;color:#10201c;border-color:#8fd0c2}
@@ -409,7 +409,7 @@ const OTO={};
   @media (prefers-reduced-motion: reduce){.aoi-flash{animation:none}}
 </style>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/","@pixiv/three-vrm":"https://cdn.jsdelivr.net/npm/@pixiv/three-vrm@3.5.5/lib/three-vrm.module.min.js"}}</script>
-<script>window.AOI_CONF={"top":false,"slug":"tsuki","kind":"kei","base":"../assets/aoi/","lines":{"about":["わたしは碧（あおい）。mitsulab がつくった AI の案内役です。","話すのは、選び方の案内と、このページに書いてある文の抜き出しだけです。新しい事実は足しません。生きものの気持ちを、代わりに言うこともしません。","確かなところは、作品ごとの注と出典で確かめてください。"],"note":"碧（AI）は、このページの文から案内しています。","kei_tail":"根拠は、作品ごとの注と出典にあります。いちばん下の「きょうのさそい」には、自分でためせることが一つ書いてあります。","omakase_note":"選んだのは、ただの偶然です。","none":"いま選べる景が見つかりませんでした。絞りこみを外してみてください。","no3dfile":["3D の碧は、公開版などウェブのページとしてひらいたときだけ呼べます。","ファイルを直接ひらいているときは、姿は出せません。"],"vrmlic":"姿：© mitsulab（VRoid Studio で作成した VRM）。この作品の中で碧を表示するためだけに置いています。利用条件は「アバターとして使えるのは作者のみ・再配布不可・改変不可」です。ファイルを取り出して、ほかで使ったり配ったりしないでください。表示：@pixiv/three-vrm・three.js（どちらも MIT）。","hello":["つき百景。月の見え方一つが、一つの景です。","札を一枚えらぶと、その景を見た絵と、書かれた文学と、いまの写真が並びます。","迷ったら「おまかせで一つ」。"],"keisec":["ことばが呼んできた絵と、文学と、いまの写真。札を押すと、その景がひらきます。"]}};</script>
+<script>window.AOI_CONF={"top":false,"slug":"tsuki","kind":"kei","base":"../assets/aoi/","lines":{"about":["わたしは碧（あおい）。人と自然のあいだに立つ依代です。","話すのは、選び方の案内と、このページに書いてある文の抜き出しだけです。新しい事実は足しません。生きものの気持ちを、代わりに言うこともしません。","確かなところは、作品ごとの注と出典で確かめてください。"],"note":"碧は、このページの文から案内しています。","kei_tail":"根拠は、作品ごとの注と出典にあります。いちばん下の「きょうのさそい」には、自分でためせることが一つ書いてあります。","omakase_note":"選んだのは、ただの偶然です。","none":"いま選べる景が見つかりませんでした。絞りこみを外してみてください。","no3dfile":["3D の碧は、公開版などウェブのページとしてひらいたときだけ呼べます。","ファイルを直接ひらいているときは、姿は出せません。"],"vrmlic":"姿：© mitsulab（VRoid Studio で作成した VRM）。この作品の中で碧を表示するためだけに置いています。利用条件は「使えるのは作者のみ・再配布不可・改変不可」です。ファイルを取り出して、ほかで使ったり配ったりしないでください。表示：@pixiv/three-vrm・three.js（どちらも MIT）。","hello":["つき百景。月の見え方一つが、一つの景です。","札を一枚えらぶと、その景を見た絵と、書かれた文学と、いまの写真が並びます。","迷ったら「おまかせで一つ」。"],"keisec":["ことばが呼んできた絵と、文学と、いまの写真。札を押すと、その景がひらきます。"]}};</script>
 <script>addEventListener("load",function(){var s=document.createElement("script");s.src="../assets/aoi/aoi.js";document.body.appendChild(s);});</script>
 <!-- aoi:end -->
 <!-- ux:begin -->
